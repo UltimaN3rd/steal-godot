@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scripts/SimpleText.gd" type="Script" id=1]
+
+[node name="Root" type="Node"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+
+margin/right = 400.0
+margin/bottom = 50.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+script/script = ExtResource( 1 )
+Text = "Testing! Weeeeeeeeeeeeeeeeeeee!"
+
+

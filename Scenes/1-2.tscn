@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://Tiles/Tiles.res" type="TileSet" id=1]
+[ext_resource path="res://Objects/Door/Door.scn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Switch/Switch.scn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Boulder/Boulder.scn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Stairs/Stairs.scn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Player/Player.scn" type="PackedScene" id=6]
+
+[node name="Root" type="Node"]
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 50, 50 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 19, 0, 65536, 0, 65555, 0, 131072, 0, 131073, 0, 131074, 0, 131075, 0, 131076, 0, 131077, 0, 131078, 0, 131079, 0, 131080, 0, 131091, 0, 196608, 0, 196609, 0, 196610, 0, 196612, 0, 196616, 0, 196617, 0, 196618, 0, 196627, 0, 262144, 0, 262145, 0, 262154, 0, 262163, 0, 327680, 0, 327689, 0, 327690, 0, 327699, 0, 393216, 0, 393217, 0, 393225, 0, 393226, 0, 393227, 0, 393235, 0, 458752, 0, 458753, 0, 458754, 0, 458756, 0, 458757, 0, 458763, 0, 458771, 0, 524288, 0, 524289, 0, 524292, 0, 524293, 0, 524294, 0, 524296, 0, 524297, 0, 524298, 0, 524299, 0, 524307, 0, 589824, 0, 589825, 0, 589827, 0, 589828, 0, 589829, 0, 589830, 0, 589831, 0, 589832, 0, 589833, 0, 589834, 0, 589835, 0, 589843, 0, 655360, 0, 655361, 0, 655379, 0, 720896, 0, 720897, 0, 720898, 0, 720899, 0, 720900, 0, 720901, 0, 720902, 0, 720903, 0, 720904, 0, 720905, 0, 720906, 0, 720907, 0, 720908, 0, 720909, 0, 720910, 0, 720911, 0, 720912, 0, 720913, 0, 720914, 0, 720915, 0 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="Doors" type="Node" parent="."]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Door" parent="Doors" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 225, 525 )
+color = Color( 0.784314, 0, 0, 1 )
+
+[node name="Switch" parent="Doors/Door" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 384, -192 )
+transform/scale = Vector2( 1, 1 )
+
+[node name="Door1" parent="Doors" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 75, -25 )
+color = Color( 0, 0, 1, 1 )
+
+[node name="Switch" parent="Doors/Door1" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 64, 0 )
+transform/scale = Vector2( 1, 1 )
+
+[node name="Boulders" type="Node" parent="."]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Boulder" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 175, 325 )
+
+[node name="Boulder1" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 175, 275 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder2" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 175, 225 )
+
+[node name="Boulder3" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 325, 225 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder4" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 375, 225 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder5" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 325, 325 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder6" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 375, 175 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder7" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 275, 275 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder8" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 375, 375 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder9" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 375, 275 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Boulder10" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 375, 325 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+
+[node name="Stairs" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 275, 525 )
+target_scene = "res://Scenes/TopdownPuzzle/X-X.tscn"
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 75, 275 )
+
+[node name="Camera2D" parent="Sprite/Player"]
+
+limit/bottom = 600
+
+
+[editable path="Player"]
