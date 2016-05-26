@@ -23,7 +23,7 @@ func _input(event):
 	if(event.is_action_pressed("room_reset")):
 		get_tree().reload_current_scene()
 	elif(event.is_action_pressed("ui_cancel")):
-		get_tree().free()
+		get_tree().quit()
 	elif(event.is_action_released("ui_up")):
 		directions[0] = false
 		movement_timer = movement_time

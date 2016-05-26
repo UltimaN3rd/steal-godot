@@ -2,4 +2,4 @@
 extends Button
 
 func _on_ButtonQuit_pressed():
-	get_tree().free()
+	get_tree().quit()
