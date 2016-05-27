@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://Scripts/ButtonPlay.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/ButtonQuit.gd" type="Script" id=2]
+[sub_resource type="GDScript" id=3]
+
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()"
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\nextends Button\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://Scenes/LevelSelect.tscn\")"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "\nextends Button\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()"
 
 [node name="Root" type="Node"]
+
+script/script = SubResource( 3 )
 
 [node name="ButtonPlay" type="Button" parent="."]
 
@@ -20,7 +31,7 @@ toggle_mode = false
 text = "Play"
 flat = false
 clip_text = true
-script/script = ExtResource( 1 )
+script/script = SubResource( 1 )
 
 [node name="ButtonQuit" type="Button" parent="."]
 
@@ -37,7 +48,7 @@ toggle_mode = false
 text = "Quit"
 flat = false
 clip_text = true
-script/script = ExtResource( 2 )
+script/script = SubResource( 2 )
 
 [connection signal="pressed" from="ButtonPlay" to="ButtonPlay" method="_on_ButtonPlay_pressed"]
 

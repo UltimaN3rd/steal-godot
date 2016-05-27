@@ -1,7 +1,7 @@
 
 extends Area2D
 
-export(String) var target_scene = "res://Scenes/X-X.scn"
+export(String) var target_scene = "res://Scenes/Levels/X-X.scn"
 
 func _ready():
 	pass

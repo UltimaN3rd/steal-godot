@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=1]
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "\nextends Button\n\nfunc _on_Button_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/1-1.tscn\")"
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "\nextends Button\n\nfunc _on_12_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/1-2.tscn\")"
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\nextends Button\n\nfunc _on_Back_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
+
+[node name="Root" type="Node"]
+
+script/script = SubResource( 2 )
+
+[node name="1-1" type="Button" parent="."]
+
+margin/left = 50.0
+margin/top = 50.0
+margin/right = 100.0
+margin/bottom = 100.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "1"
+flat = false
+script/script = SubResource( 3 )
+
+[node name="1-2" type="Button" parent="."]
+
+margin/left = 150.0
+margin/top = 50.0
+margin/right = 200.0
+margin/bottom = 100.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "2"
+flat = false
+script/script = SubResource( 4 )
+
+[node name="Back" type="Button" parent="."]
+
+margin/left = 150.0
+margin/top = 250.0
+margin/right = 300.0
+margin/bottom = 300.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Back"
+flat = false
+script/script = SubResource( 1 )
+
+[connection signal="pressed" from="1-1" to="1-1" method="_on_Button_pressed"]
+
+[connection signal="pressed" from="1-2" to="1-2" method="_on_12_pressed"]
+
+[connection signal="pressed" from="Back" to="Back" method="_on_Back_pressed"]
+
+
