@@ -1,28 +1,20 @@
-[gd_scene load_steps=4 format=1]
-
-[sub_resource type="GDScript" id=3]
-
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()"
+[gd_scene load_steps=2 format=1]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Button\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://Scenes/LevelSelect.tscn\")"
-
-[sub_resource type="GDScript" id=2]
-
-script/source = "\nextends Button\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://Scenes/LevelSelect.tscn\")\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()"
 
 [node name="Root" type="Node"]
 
-script/script = SubResource( 3 )
+script/script = SubResource( 1 )
 
 [node name="ButtonPlay" type="Button" parent="."]
 
 visibility/opacity = 0.6
-margin/left = 100.0
-margin/top = 100.0
-margin/right = 350.0
-margin/bottom = 150.0
+margin/left = 115.0
+margin/top = 105.0
+margin/right = 365.0
+margin/bottom = 155.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -31,15 +23,14 @@ toggle_mode = false
 text = "Play"
 flat = false
 clip_text = true
-script/script = SubResource( 1 )
 
 [node name="ButtonQuit" type="Button" parent="."]
 
 visibility/opacity = 0.6
-margin/left = 100.0
-margin/top = 250.0
-margin/right = 350.0
-margin/bottom = 300.0
+margin/left = 115.0
+margin/top = 255.0
+margin/right = 365.0
+margin/bottom = 305.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -48,10 +39,9 @@ toggle_mode = false
 text = "Quit"
 flat = false
 clip_text = true
-script/script = SubResource( 2 )
 
-[connection signal="pressed" from="ButtonPlay" to="ButtonPlay" method="_on_ButtonPlay_pressed"]
+[connection signal="pressed" from="ButtonPlay" to="." method="_on_ButtonPlay_pressed"]
 
-[connection signal="pressed" from="ButtonQuit" to="ButtonQuit" method="_on_ButtonQuit_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_ButtonQuit_pressed"]
 
 

@@ -54,7 +54,7 @@ transform/scale = Vector2( 0.78125, 0.78125 )
 [node name="Stairs" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 25, -25 )
-target_scene = "res://Scenes/TopdownPuzzle/X-X.tscn"
+target_scene = "res://Scenes/TopdownPuzzle/X.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 
