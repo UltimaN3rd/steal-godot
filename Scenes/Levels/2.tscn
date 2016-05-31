@@ -1,11 +1,16 @@
 [gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Tiles/Tiles.res" type="TileSet" id=1]
-[ext_resource path="res://Objects/Door/Door.scn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/Switch/Switch.scn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Boulder/Boulder.scn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Stairs/Stairs.scn" type="PackedScene" id=5]
-[ext_resource path="res://Objects/Player/Player.scn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Door/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Switch/Switch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Boulder/Boulder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Stairs/Stairs.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=6]
+
+
+
+
+
 
 [node name="Root" type="Node"]
 
@@ -108,8 +113,9 @@ target_scene = "res://Scenes/TopdownPuzzle/X.tscn"
 
 transform/pos = Vector2( 75, 175 )
 
-[node name="Camera2D" parent="Sprite/Player"]
+[node name="Camera2D" parent="Player"]
 
+current = true
 limit/right = 550
 limit/bottom = 400
 
