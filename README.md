@@ -1,16 +1,16 @@
-Steal Godot
+# Steal Godot
 
 A simple 2D top-down puzzle game.
 
-Key features:
+### Key features:
 
 - Pushable boulders
 - Flippable switches
 - Openable doors
 - Slippery ice
-- A main menu!
+- A main menu <sup>Wow</sup>
 
-To build:
+### To build:
 
 - Run the latest* Godot engine available here: http://godotengine.org/download
 - Clone the repository (green button on top-right of git page)
