@@ -7,11 +7,6 @@
 [ext_resource path="res://Objects/Stairs/Stairs.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=6]
 
-
-
-
-
-
 [node name="Root" type="Node"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -40,12 +35,14 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Door" parent="Doors" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 125, 275 )
+collision/margin = 0.08
 color = Color( 0.784314, 0, 0, 1 )
 
 [node name="Switch" parent="Doors/Door" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 448, 0 )
 transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
 
 [node name="Boulders" type="Node" parent="."]
 
@@ -54,68 +51,71 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Boulder" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 125, 225 )
+collision/margin = 0.08
 
 [node name="Boulder1" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 125, 175 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder2" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 125, 125 )
+collision/margin = 0.08
 
 [node name="Boulder3" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 275, 125 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder4" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 325, 125 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder5" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 275, 225 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder6" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 325, 75 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder7" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 225, 175 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder8" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 325, 275 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder9" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 325, 175 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Boulder10" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 325, 225 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Stairs" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 125, 325 )
-target_scene = "res://Scenes/TopdownPuzzle/X.tscn"
+linear_damp = 0.1
+target_scene = "res://Scenes/Levels/3.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 75, 175 )
+collision/margin = 0.08
 
 [node name="Camera2D" parent="Player"]
 
-current = true
 limit/right = 550
 limit/bottom = 400
 

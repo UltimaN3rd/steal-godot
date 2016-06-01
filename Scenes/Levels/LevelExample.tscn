@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://Tiles/Tiles.res" type="TileSet" id=1]
-[ext_resource path="res://Objects/Door/Door.scn" type="PackedScene" id=2]
-[ext_resource path="res://Objects/Switch/Switch.scn" type="PackedScene" id=3]
-[ext_resource path="res://Objects/Boulder/Boulder.scn" type="PackedScene" id=4]
-[ext_resource path="res://Objects/Stairs/Stairs.scn" type="PackedScene" id=5]
-[ext_resource path="res://Objects/Player/Player.scn" type="PackedScene" id=6]
+[ext_resource path="res://Objects/Door/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Objects/Switch/Switch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Objects/Boulder/Boulder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Objects/Stairs/Stairs.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Objects/Player/Player.tscn" type="PackedScene" id=6]
 
 [node name="Root" type="Node"]
 
@@ -35,12 +35,14 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Door" parent="Doors" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 125, -25 )
+collision/margin = 0.08
 color = Color( 0.784314, 0, 0, 1 )
 
 [node name="Switch" parent="Doors/Door" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 64, 0 )
 transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
 
 [node name="Boulders" type="Node" parent="."]
 
@@ -49,16 +51,18 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Boulder" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 75, -25 )
-transform/scale = Vector2( 0.78125, 0.78125 )
+collision/margin = 0.08
 
 [node name="Stairs" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 25, -25 )
-target_scene = "res://Scenes/TopdownPuzzle/X.tscn"
+linear_damp = 0.1
+target_scene = "res://Scenes/Levels/X.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 75, 75 )
+collision/margin = 0.08
 
 
 [editable path="Player"]
