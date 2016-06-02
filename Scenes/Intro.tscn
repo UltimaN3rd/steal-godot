@@ -1,10 +1,27 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://Voice Acting/Intro.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Cinematics/BAAADGround.png" type="Texture" id=2]
+[ext_resource path="res://Cinematics/IndieHappy.png" type="Texture" id=3]
+[ext_resource path="res://Cinematics/IndieSad.png" type="Texture" id=4]
+[ext_resource path="res://Cinematics/BAAADGroup.png" type="Texture" id=5]
+[ext_resource path="res://Cinematics/BAAADText.png" type="Texture" id=6]
 
 [sub_resource type="GDScript" id=1]
 
 script/source = "\nextends Node\n\nfunc _ready():\n\tpass\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Introduction_finished():\n\tif(get_node(\"Introduction\").get_loop_count() > 0):\n\t\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "\nextends Sprite\n\nconst speed = 150.0\nconst max_x = 210\n\nvar go = false\nvar x = -16\n\nonready var y = 170\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(go):\n\t\tx += speed * delta\n\t\tif(x > max_x):\n\t\t\tx = -16\n\t\tset_pos(Vector2(x, y))\n\nfunc _on_Timer_timeout():\n\tgo = true"
+
+[sub_resource type="GDScript" id=4]
+
+script/source = "\nextends Sprite\n\nconst speed = 150.0\nconst max_x = 480\n\nvar go = false\nvar x = 250\n\nonready var y = 170\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(go):\n\t\tx += speed * delta\n\t\tif(x > max_x):\n\t\t\tx = 250\n\t\tset_pos(Vector2(x, y))\n\nfunc _on_Timer_timeout():\n\tgo = true"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "\nextends Sprite\n\nconst alpha_per_second = 1.0\nvar time_till_destroy = 5.0\n\nfunc _fixed_process(delta):\n\ttime_till_destroy -= delta\n\tif(time_till_destroy <= 0):\n\t\tqueue_free()\n\t\n\tset_opacity(get_opacity() + alpha_per_second * delta)\n\nfunc _on_Timer_timeout():\n\tset_fixed_process(true)"
 
 [node name="Root" type="Node"]
 
@@ -21,10 +38,64 @@ stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
 
+[node name="BAAADGround" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+centered = false
+
+[node name="IndieHappy" type="Sprite" parent="."]
+
+transform/pos = Vector2( -16, 150 )
+texture = ExtResource( 3 )
+centered = false
+script/script = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="IndieHappy"]
+
+process_mode = 1
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="IndieSad" type="Sprite" parent="."]
+
+transform/pos = Vector2( -16, 150 )
+texture = ExtResource( 4 )
+centered = false
+script/script = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="IndieSad"]
+
+process_mode = 1
+wait_time = 5.5
+one_shot = true
+autostart = true
+
+[node name="BAAAD" type="Sprite" parent="."]
+
+transform/pos = Vector2( 240, 174 )
+texture = ExtResource( 5 )
+
+[node name="BAAADText" type="Sprite" parent="."]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 123, 263 )
+texture = ExtResource( 6 )
+centered = false
+script/script = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="BAAADText"]
+
+process_mode = 0
+wait_time = 3.3
+one_shot = true
+autostart = true
+
 [node name="Skip" type="Button" parent="."]
 
-margin/left = 355.0
-margin/top = 285.0
+visibility/opacity = 0.5
+margin/left = 388.0
+margin/top = 316.0
 margin/right = 455.0
 margin/bottom = 335.0
 focus/ignore_mouse = false
@@ -36,6 +107,12 @@ text = "Skip Intro"
 flat = false
 
 [connection signal="finished" from="Introduction" to="." method="_on_Introduction_finished"]
+
+[connection signal="timeout" from="IndieHappy/Timer" to="IndieHappy" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="IndieSad/Timer" to="IndieSad" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="BAAADText/Timer" to="BAAADText" method="_on_Timer_timeout"]
 
 [connection signal="pressed" from="Skip" to="." method="_on_Skip_pressed"]
 
