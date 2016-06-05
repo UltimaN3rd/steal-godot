@@ -13,25 +13,25 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tpass\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Introduction_finished():\n\tif(get_node(\"Introduction\").get_loop_count() > 0):\n\t\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
+script/source = "\nextends Node\n\nfunc _ready():\n\tpass\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Introduction_finished():\n\tif(get_node(\"Introduction\").get_loop_count() > 0):\n\t\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 
 script/source = "\nextends Sprite\n\nconst speed = 150.0\nconst max_x = 210\n\nvar go = false\nvar x = -16\n\nonready var y = 170\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(go):\n\t\tx += speed * delta\n\t\tif(x > max_x):\n\t\t\tx = -16\n\t\tset_pos(Vector2(x, y))\n\nfunc _on_Timer_timeout():\n\tgo = true"
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 
 script/source = "\nextends Sprite\n\nconst speed = 150.0\nconst max_x = 480\n\nvar go = false\nvar x = 250\n\nonready var y = 170\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(go):\n\t\tx += speed * delta\n\t\tif(x > max_x):\n\t\t\tx = 250\n\t\tset_pos(Vector2(x, y))\n\nfunc _on_Timer_timeout():\n\tgo = true"
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=4]
 
 script/source = "\nextends Sprite\n\nconst alpha_per_second = 1.0\nvar time_till_destroy = 5.0\n\nfunc _fixed_process(delta):\n\ttime_till_destroy -= delta\n\tif(time_till_destroy <= 0):\n\t\tget_parent().get_parent().get_node(\"2\").start()\n\t\tget_parent().queue_free()\n\t\n\tset_opacity(get_opacity() + alpha_per_second * delta)\n\nfunc _on_Timer_timeout():\n\tset_fixed_process(true)"
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=5]
 
 script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"Engines\").set_hidden(false)\n\tget_node(\"Dollars\").set_emitting(true)\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_parent().get_node(\"3\").start()\n\tqueue_free()"
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=6]
 
 script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"IndieHappy\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_fixed_process(true)\n\tget_node(\"GameComplete\").set_hidden(false)\n\tget_node(\"EngineDevelopment/Timer\").start()\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tqueue_free()"
 
@@ -39,13 +39,20 @@ script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"IndieHappy\").set
 
 script/source = "\nextends Sprite\n\nconst x_max = 125\nconst speed = 75\n\nonready var x = get_pos().x\nonready var y = get_pos().y\n\nfunc _fixed_process(delta):\n\tx += speed * delta\n\tif(x > x_max):\n\t\tget_parent().get_node(\"IndieSad\").set_hidden(false)\n\t\tqueue_free()\n\tset_pos(Vector2(x, y))"
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=8]
 
 script/source = "\nextends Sprite\n\nfunc _on_Timer_timeout():\n\tset_hidden(false)"
 
 [node name="Root" type="Node"]
 
 script/script = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = true
+autostart = false
 
 [node name="Introduction" type="StreamPlayer" parent="."]
 
@@ -72,7 +79,7 @@ __meta__ = { "_editor_collapsed":true }
 transform/pos = Vector2( -16, 150 )
 texture = ExtResource( 3 )
 centered = false
-script/script = SubResource( 3 )
+script/script = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="1/IndieHappy"]
 
@@ -86,7 +93,7 @@ autostart = true
 transform/pos = Vector2( -16, 150 )
 texture = ExtResource( 4 )
 centered = false
-script/script = SubResource( 4 )
+script/script = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="1/IndieSad"]
 
@@ -106,7 +113,7 @@ visibility/opacity = 0.0
 transform/pos = Vector2( 123, 263 )
 texture = ExtResource( 6 )
 centered = false
-script/script = SubResource( 5 )
+script/script = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="1/BAAADText"]
 
@@ -117,7 +124,7 @@ autostart = true
 
 [node name="2" type="Node" parent="."]
 
-script/script = SubResource( 6 )
+script/script = SubResource( 5 )
 
 [node name="Dollars" type="Particles2D" parent="2"]
 
@@ -158,7 +165,7 @@ autostart = false
 
 [node name="3" type="Node" parent="."]
 
-script/script = SubResource( 8 )
+script/script = SubResource( 6 )
 
 [node name="IndieHappy" type="Sprite" parent="3"]
 
@@ -188,7 +195,7 @@ visibility/visible = false
 transform/pos = Vector2( 148, 158 )
 texture = ExtResource( 10 )
 centered = false
-script/script = SubResource( 9 )
+script/script = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="3/EngineDevelopment"]
 
@@ -218,6 +225,8 @@ size_flags/vertical = 2
 toggle_mode = false
 text = "Skip Intro"
 flat = false
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 [connection signal="finished" from="Introduction" to="." method="_on_Introduction_finished"]
 
