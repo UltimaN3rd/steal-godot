@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=1]
+[gd_scene load_steps=24 format=1]
 
 [ext_resource path="res://Voice Acting/Intro.ogg" type="AudioStream" id=1]
 [ext_resource path="res://Cinematics/BAAADGround.png" type="Texture" id=2]
@@ -10,10 +10,14 @@
 [ext_resource path="res://Cinematics/Engines.png" type="Texture" id=8]
 [ext_resource path="res://Cinematics/GameComplete.png" type="Texture" id=9]
 [ext_resource path="res://Cinematics/EngineDevelopment.png" type="Texture" id=10]
+[ext_resource path="res://Cinematics/StealGodot.png" type="Texture" id=11]
+[ext_resource path="res://Cinematics/PlayerBase.png" type="Texture" id=12]
+[ext_resource path="res://Cinematics/PlayerThief.png" type="Texture" id=13]
+[ext_resource path="res://Cinematics/A game by.png" type="Texture" id=14]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tpass\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Introduction_finished():\n\tif(get_node(\"Introduction\").get_loop_count() > 0):\n\t\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_Skip_pressed()\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Introduction_finished():\n\tif(get_node(\"Introduction\").get_loop_count() > 0):\n\t\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")"
 
 [sub_resource type="GDScript" id=2]
 
@@ -33,7 +37,7 @@ script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"Engines\").set_hi
 
 [sub_resource type="GDScript" id=6]
 
-script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"IndieHappy\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_fixed_process(true)\n\tget_node(\"GameComplete\").set_hidden(false)\n\tget_node(\"EngineDevelopment/Timer\").start()\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tqueue_free()"
+script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"IndieHappy\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_fixed_process(true)\n\tget_node(\"GameComplete\").set_hidden(false)\n\tget_node(\"EngineDevelopment/Timer\").start()\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_parent().get_node(\"4\").start()\n\tqueue_free()"
 
 [sub_resource type="GDScript" id=7]
 
@@ -43,6 +47,10 @@ script/source = "\nextends Sprite\n\nconst x_max = 125\nconst speed = 75\n\nonre
 
 script/source = "\nextends Sprite\n\nfunc _on_Timer_timeout():\n\tset_hidden(false)"
 
+[sub_resource type="GDScript" id=9]
+
+script/source = "\nextends Node\n\nvar do_steal_godot = false\nvar do_clothes = false\nvar do_agameby = false\n\nonready var node_steal_godot = get_node(\"StealGodot\")\nonready var node_clothes = get_node(\"Player/Clothes\")\nonready var node_agameby = get_node(\"AGameBy\")\n\nfunc start():\n\tset_fixed_process(true)\n\tget_node(\"AGameBy/TimerAGameBy\").start()\n\tget_node(\"Player/Clothes/TimerClothes\").start()\n\tget_node(\"StealGodot/TimerStealGodot\").start()\n\tget_node(\"Player\").set_hidden(false)\n\nfunc _fixed_process(delta):\n\tif(do_steal_godot):\n\t\tnode_steal_godot.set_opacity(node_steal_godot.get_opacity() + delta)\n\tif(do_clothes):\n\t\tnode_clothes.set_opacity(node_clothes.get_opacity() + delta)\n\tif(do_agameby):\n\t\tnode_agameby.set_opacity(node_agameby.get_opacity() + delta)\n\nfunc _on_TimerStealGodot_timeout():\n\tdo_steal_godot = true\n\nfunc _on_TimerClothes_timeout():\n\tdo_clothes = true\n\nfunc _on_TimerAGameBy_timeout():\n\tdo_agameby = true"
+
 [node name="Root" type="Node"]
 
 script/script = SubResource( 1 )
@@ -50,7 +58,7 @@ script/script = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 
 process_mode = 1
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 autostart = false
 
@@ -125,6 +133,7 @@ autostart = true
 [node name="2" type="Node" parent="."]
 
 script/script = SubResource( 5 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Dollars" type="Particles2D" parent="2"]
 
@@ -166,6 +175,7 @@ autostart = false
 [node name="3" type="Node" parent="."]
 
 script/script = SubResource( 6 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="IndieHappy" type="Sprite" parent="3"]
 
@@ -211,8 +221,60 @@ wait_time = 3.0
 one_shot = true
 autostart = false
 
+[node name="4" type="Node" parent="."]
+
+script/script = SubResource( 9 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="StealGodot" type="Sprite" parent="4"]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 240, 40 )
+texture = ExtResource( 11 )
+
+[node name="TimerStealGodot" type="Timer" parent="4/StealGodot"]
+
+process_mode = 1
+wait_time = 7.0
+one_shot = true
+autostart = false
+
+[node name="Player" type="Sprite" parent="4"]
+
+visibility/visible = false
+transform/pos = Vector2( 240, 190 )
+transform/scale = Vector2( 5, 5 )
+texture = ExtResource( 12 )
+
+[node name="Clothes" type="Sprite" parent="4/Player"]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, -5 )
+texture = ExtResource( 13 )
+
+[node name="TimerClothes" type="Timer" parent="4/Player/Clothes"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+
+[node name="AGameBy" type="Sprite" parent="4"]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 240, 321 )
+texture = ExtResource( 14 )
+
+[node name="TimerAGameBy" type="Timer" parent="4/AGameBy"]
+
+process_mode = 1
+wait_time = 9.0
+one_shot = true
+autostart = false
+
 [node name="Skip" type="Button" parent="."]
 
+visibility/visible = false
 visibility/opacity = 0.5
 margin/left = 388.0
 margin/top = 316.0
@@ -241,6 +303,12 @@ flat = false
 [connection signal="timeout" from="3/EngineDevelopment/Timer" to="3/EngineDevelopment" method="_on_Timer_timeout"]
 
 [connection signal="timeout" from="3/Timer" to="3" method="_on_Timer_timeout"]
+
+[connection signal="timeout" from="4/StealGodot/TimerStealGodot" to="4" method="_on_TimerStealGodot_timeout"]
+
+[connection signal="timeout" from="4/Player/Clothes/TimerClothes" to="4" method="_on_TimerClothes_timeout"]
+
+[connection signal="timeout" from="4/AGameBy/TimerAGameBy" to="4" method="_on_TimerAGameBy_timeout"]
 
 [connection signal="pressed" from="Skip" to="." method="_on_Skip_pressed"]
 
