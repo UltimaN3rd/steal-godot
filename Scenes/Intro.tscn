@@ -274,7 +274,6 @@ autostart = false
 
 [node name="Skip" type="Button" parent="."]
 
-visibility/visible = false
 visibility/opacity = 0.5
 margin/left = 388.0
 margin/top = 316.0

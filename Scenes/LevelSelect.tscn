@@ -2,7 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_L1_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/1.tscn\")\n\nfunc _on_L2_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/2.tscn\")\n\nfunc _on_Back_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_L3_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/3.tscn\")\n"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_Back_pressed():\n\tget_tree().change_scene(\"res://Scenes/Menu.tscn\")\n\nfunc _on_B2_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/B2.tscn\")\n\nfunc _on_B1_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/B1.tscn\")\n\nfunc _on_I1_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/I1.tscn\")\n\nfunc _on_I2_pressed():\n\tget_tree().change_scene(\"res://Scenes/Levels/I2.tscn\")"
 
 [node name="Root" type="Node"]
 
@@ -22,54 +22,70 @@ toggle_mode = false
 text = "Back to Menu"
 flat = false
 
-[node name="L1" type="Button" parent="."]
+[node name="B1" type="Button" parent="."]
 
-margin/left = 65.0
+margin/left = 90.0
 margin/top = 30.0
-margin/right = 115.0
+margin/right = 140.0
 margin/bottom = 80.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
-text = "1"
+text = "B1"
 flat = false
 
-[node name="L2" type="Button" parent="."]
+[node name="B2" type="Button" parent="."]
 
-margin/left = 165.0
+margin/left = 215.0
 margin/top = 30.0
-margin/right = 215.0
+margin/right = 265.0
 margin/bottom = 80.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
-text = "2"
+text = "B2"
 flat = false
 
-[node name="L3" type="Button" parent="."]
+[node name="I1" type="Button" parent="."]
 
-margin/left = 265.0
-margin/top = 30.0
-margin/right = 315.0
-margin/bottom = 80.0
+margin/left = 90.0
+margin/top = 155.0
+margin/right = 140.0
+margin/bottom = 205.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
-text = "3"
+text = "I1"
+flat = false
+
+[node name="I2" type="Button" parent="."]
+
+margin/left = 215.0
+margin/top = 155.0
+margin/right = 265.0
+margin/bottom = 205.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "I2"
 flat = false
 
 [connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
 
-[connection signal="pressed" from="L1" to="." method="_on_L1_pressed"]
+[connection signal="pressed" from="B1" to="." method="_on_B1_pressed"]
 
-[connection signal="pressed" from="L2" to="." method="_on_L2_pressed"]
+[connection signal="pressed" from="B2" to="." method="_on_B2_pressed"]
 
-[connection signal="pressed" from="L3" to="." method="_on_L3_pressed"]
+[connection signal="pressed" from="I1" to="." method="_on_I1_pressed"]
+
+[connection signal="pressed" from="I2" to="." method="_on_I2_pressed"]
 
 

@@ -57,7 +57,7 @@ collision/margin = 0.08
 
 transform/pos = Vector2( 25, -25 )
 linear_damp = 0.1
-target_scene = "res://Scenes/Levels/X.tscn"
+target_scene = "res://Scenes/LevelSelect.tscn"
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 

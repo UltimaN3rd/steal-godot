@@ -10,6 +10,7 @@ var move_next_frame = -1
 var next_target = Vector2()
 var directions = [false, false, false, false] #Up, Down, Left, Right
 var movement_timer = 0
+var on_ice = false
 
 onready var target_position = get_pos()
 onready var last_position = get_pos()
@@ -36,14 +37,15 @@ func _input(event):
 	elif(event.is_action_released("ui_right")):
 		directions[3] = false
 		movement_timer = movement_time
-	elif(event.is_action_pressed("ui_up")):
-		directions[0] = true
-	elif(event.is_action_pressed("ui_down")):
-		directions[1] = true
-	elif(event.is_action_pressed("ui_left")):
-		directions[2] = true
-	elif(event.is_action_pressed("ui_right")):
-		directions[3] = true
+	if(not on_ice):
+		if(event.is_action_pressed("ui_up")):
+			directions[0] = true
+		elif(event.is_action_pressed("ui_down")):
+			directions[1] = true
+		elif(event.is_action_pressed("ui_left")):
+			directions[2] = true
+		elif(event.is_action_pressed("ui_right")):
+			directions[3] = true
 
 func _fixed_process(delta):
 	movement_timer += delta
@@ -81,6 +83,7 @@ func _fixed_process(delta):
 		
 		var collided = false
 		
+		on_ice = false
 		# Check what we hit
 		if(!move_test.empty()):
 			collided = false # Default to non-solid collision
@@ -129,3 +132,4 @@ func move_to(target):
 func delayed_move_to(target, delay = 1):
 	move_next_frame = delay
 	next_target = target
+	on_ice = true
