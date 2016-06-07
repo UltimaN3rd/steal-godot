@@ -10,7 +10,7 @@ var move_next_frame = -1
 var next_target = Vector2()
 var directions = [false, false, false, false] #Up, Down, Left, Right
 var movement_timer = 0
-var on_ice = false
+var stopped = true
 
 onready var target_position = get_pos()
 onready var last_position = get_pos()
@@ -37,7 +37,7 @@ func _input(event):
 	elif(event.is_action_released("ui_right")):
 		directions[3] = false
 		movement_timer = movement_time
-	if(not on_ice):
+	if(stopped):
 		if(event.is_action_pressed("ui_up")):
 			directions[0] = true
 		elif(event.is_action_pressed("ui_down")):
@@ -83,7 +83,7 @@ func _fixed_process(delta):
 		
 		var collided = false
 		
-		on_ice = false
+		var on_blank_space = true
 		# Check what we hit
 		if(!move_test.empty()):
 			collided = false # Default to non-solid collision
@@ -91,6 +91,7 @@ func _fixed_process(delta):
 			for hit in move_test:
 				var hit_name = hit.collider.get_name()
 				if(hit_name == "TileMap"):
+					on_blank_space = false
 					var tile_index = hit.collider.get_cellv(target_position / GRID_STEP)
 					if(tile_index == 0): #Blue
 						collided = true
@@ -108,7 +109,11 @@ func _fixed_process(delta):
 						hit.collider.flip()
 						collided = true
 		
+		if(on_blank_space):
+			stopped = true
+		
 		if(collided):
+			stopped = true
 			target_position = last_position # Since we collided, don't move
 			move_next_frame = -1
 		else:
@@ -122,14 +127,15 @@ func move(vector):
 	if(vector != last_position):
 		target_position = vector
 		moved = true
+		stopped = false
 
 func move_to(target):
 	if(target != last_position):
 		target_position = target
 		moved = true
 		move_next_frame = -1
+		stopped = false
 
 func delayed_move_to(target, delay = 1):
 	move_next_frame = delay
 	next_target = target
-	on_ice = true
