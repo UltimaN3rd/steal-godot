@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://objects/boulder/boulder.gd" type="Script" id=1]
+[ext_resource path="res://objects/boulder/boulder.png" type="Texture" id=2]
+[ext_resource path="res://objects/player/sprite.gd" type="Script" id=3]
+
+
+
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.72, 30.72 )
+
+[node name="Boulder" type="KinematicBody2D"]
+
+transform/pos = Vector2( 25, 25 )
+transform/scale = Vector2( 0.78125, 0.78125 )
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( -2.86102e-06, -3.8147e-06 )
+transform/scale = Vector2( 0.768, 0.768 )
+texture = ExtResource( 2 )
+script/script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+visibility/visible = false
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

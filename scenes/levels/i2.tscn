@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://tiles/tiles.res" type="TileSet" id=1]
+[ext_resource path="res://objects/stairs/stairs.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/levelscomplete/godotbr.png" type="Texture" id=3]
+[ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=4]
+
+[node name="Root" type="Node"]
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 50, 50 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 13, 0, 14, 0, 15, 0, 16, 0, 17, 0, 18, 0, 65536, 0, 65538, 1, 65539, 1, 65540, 1, 65541, 1, 65543, 1, 65545, 1, 65546, 1, 65547, 1, 65548, 1, 65549, 1, 65550, 1, 65551, 1, 65552, 1, 65554, 0, 131072, 0, 131073, 1, 131076, 1, 131077, 0, 131078, 1, 131079, 0, 131080, 1, 131081, 0, 131082, 1, 131083, 1, 131084, 1, 131085, 1, 131086, 1, 131087, 1, 131088, 1, 131090, 0, 196608, 0, 196609, 1, 196611, 0, 196612, 1, 196614, 1, 196616, 1, 196618, 1, 196620, 1, 196622, 1, 196625, 1, 196626, 0, 262144, 0, 262145, 1, 262147, 0, 262148, 1, 262149, 0, 262150, 1, 262151, 0, 262152, 1, 262153, 0, 262154, 1, 262155, 0, 262156, 1, 262158, 1, 262161, 1, 262162, 0, 327680, 0, 327681, 1, 327684, 1, 327686, 1, 327688, 1, 327690, 1, 327692, 1, 327693, 0, 327694, 1, 327697, 1, 327698, 0, 393216, 0, 393218, 1, 393219, 1, 393220, 1, 393221, 0, 393222, 1, 393223, 0, 393224, 1, 393225, 0, 393226, 1, 393228, 1, 393230, 1, 393233, 1, 393234, 0, 458752, 0, 458753, 1, 458756, 0, 458758, 1, 458759, 1, 458760, 1, 458761, 1, 458762, 1, 458763, 0, 458764, 1, 458765, 1, 458766, 1, 458767, 1, 458768, 1, 458770, 0, 524288, 0, 524289, 1, 524290, 1, 524291, 1, 524292, 1, 524293, 1, 524295, 0, 524297, 0, 524298, 0, 524299, 1, 524300, 0, 524301, 0, 524305, 1, 524306, 0, 589824, 0, 589825, 1, 589830, 1, 589832, 0, 589835, 1, 589841, 1, 589842, 0, 655360, 0, 655361, 1, 655366, 1, 655371, 1, 655377, 1, 655378, 0, 720896, 0, 720898, 1, 720899, 1, 720900, 1, 720901, 1, 720903, 1, 720904, 1, 720905, 1, 720906, 1, 720908, 1, 720909, 1, 720910, 1, 720911, 1, 720912, 1, 720914, 0, 786432, 0, 786433, 0, 786434, 0, 786435, 0, 786436, 0, 786437, 0, 786438, 0, 786439, 0, 786440, 0, 786441, 0, 786442, 0, 786443, 0, 786444, 0, 786445, 0, 786446, 0, 786447, 0, 786448, 0, 786449, 0, 786450, 0 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="Stairs" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 125, 125 )
+linear_damp = 0.1
+
+[node name="Sprite" parent="Stairs"]
+
+texture = ExtResource( 3 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 75, 75 )
+collision/margin = 0.08
+
+[node name="Camera2D" parent="Player"]
+
+limit/right = 950
+limit/bottom = 650
+
+
+[editable path="Stairs"]
+[editable path="Player"]

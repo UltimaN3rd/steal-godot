@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://tiles/tiles.res" type="TileSet" id=1]
+[ext_resource path="res://objects/door/door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/switch/switch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/boulder/boulder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://objects/stairs/stairs.tscn" type="PackedScene" id=5]
+[ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=6]
+
+[node name="Root" type="Node"]
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 50, 50 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 65536, 0, 65545, 0, 131072, 0, 131081, 0, 196608, 0, 196617, 0, 262144, 0, 262153, 0, 327680, 0, 327689, 0, 393216, 0, 393225, 0, 458752, 0, 458761, 0, 524288, 0, 524297, 0, 589824, 0, 589825, 0, 589826, 0, 589827, 0, 589828, 0, 589829, 0, 589830, 0, 589831, 0, 589832, 0, 589833, 0 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="Doors" type="Node" parent="."]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Door" parent="Doors" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 125, -25 )
+collision/margin = 0.08
+color = Color( 0.784314, 0, 0, 1 )
+
+[node name="Switch" parent="Doors/Door" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 64, 0 )
+transform/scale = Vector2( 1, 1 )
+linear_damp = 0.1
+
+[node name="Boulders" type="Node" parent="."]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Boulder" parent="Boulders" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 75, -25 )
+collision/margin = 0.08
+
+[node name="Stairs" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 25, -25 )
+linear_damp = 0.1
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 75, 75 )
+collision/margin = 0.08
+
+
+[editable path="Player"]

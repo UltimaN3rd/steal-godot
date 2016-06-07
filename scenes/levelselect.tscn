@@ -1,0 +1,172 @@
+[gd_scene load_steps=8 format=1]
+
+[ext_resource path="res://sprites/levelscomplete/godottl.png" type="Texture" id=1]
+[ext_resource path="res://sprites/levelscomplete/godottr.png" type="Texture" id=2]
+[ext_resource path="res://sprites/levelscomplete/godotbl.png" type="Texture" id=3]
+[ext_resource path="res://sprites/levelscomplete/godotbr.png" type="Texture" id=4]
+[ext_resource path="res://sprites/levelscomplete/bonust.png" type="Texture" id=5]
+[ext_resource path="res://sprites/levelscomplete/bonusb.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\nextends Node\n\nvar save_file = File.new()\nvar level_complete = [true, false, false, true, false, false] # B1/2, I1/2, E1/2\n\nonready var completion_sprites = [get_node(\"B1/Sprite\"), get_node(\"B2/Sprite\"), get_node(\"I1/Sprite\"), get_node(\"I2/Sprite\"), get_node(\"E1/Sprite\"), get_node(\"E2/Sprite\")]\n\nfunc _exit_tree():\n\tsave_file.open(\"user://save.txt\", save_file.WRITE)\n\tfor i in range(level_complete.size()):\n\t\tif(level_complete[i]):\n\t\t\tsave_file.store_string(\"1\")\n\t\telse:\n\t\t\tsave_file.store_string(\"0\")\n\tsave_file.close()\n\nfunc _ready():\n\tset_process_input(true)\n\tif(save_file.file_exists(\"user://save.txt\")):\n\t\tsave_file.open(\"user://save.txt\", save_file.READ_WRITE)\n\t\tvar save_data = save_file.get_as_text()\n\t\tif(not save_data.empty()):\n\t\t\tfor i in range(level_complete.size()):\n\t\t\t\tlevel_complete[i] = (save_data[i] == \"1\")\n\telse:\n\t\tsave_file.open(\"user://save.txt\", save_file.WRITE)\n\t\tfor i in range(level_complete.size()):\n\t\t\tif(level_complete[i]):\n\t\t\t\tsave_file.store_string(\"1\")\n\t\t\telse:\n\t\t\t\tsave_file.store_string(\"0\")\n\tsave_file.close()\n\t\n\tfor i in range(level_complete.size()):\n\t\tif(level_complete[i]):\n\t\t\tcompletion_sprites[i].set_opacity(1)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_Back_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_B1_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/b1.tscn\")\n\nfunc _on_B2_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/b2.tscn\")\n\nfunc _on_I1_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/i1.tscn\")\n\nfunc _on_I2_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/i2.tscn\")\n\nfunc _on_E1_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/e1.tscn\")\n\nfunc _on_E2_pressed():\n\tget_tree().change_scene(\"res://scenes/levels/e2.tscn\")"
+
+[node name="Root" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="Back" type="Button" parent="."]
+
+margin/left = 165.0
+margin/top = 280.0
+margin/right = 315.0
+margin/bottom = 330.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Back to Menu"
+flat = false
+
+[node name="B1" type="Button" parent="."]
+
+margin/left = 90.0
+margin/top = 30.0
+margin/right = 140.0
+margin/bottom = 80.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "B1"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="B1"]
+
+visibility/opacity = 0.1
+transform/pos = Vector2( 62, 62 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="B2" type="Button" parent="."]
+
+margin/left = 215.0
+margin/top = 30.0
+margin/right = 265.0
+margin/bottom = 80.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "B2"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="B2"]
+
+visibility/opacity = 0.1
+transform/pos = Vector2( -39, 62 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="I1" type="Button" parent="."]
+
+margin/left = 90.0
+margin/top = 155.0
+margin/right = 140.0
+margin/bottom = 205.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "I1"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="I1"]
+
+visibility/opacity = 0.1
+transform/pos = Vector2( 62, -38 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="I2" type="Button" parent="."]
+
+margin/left = 215.0
+margin/top = 155.0
+margin/right = 265.0
+margin/bottom = 205.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "I2"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="I2"]
+
+visibility/opacity = 0.1
+transform/pos = Vector2( -39, -39 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="E1" type="Button" parent="."]
+
+margin/left = 340.0
+margin/top = 30.0
+margin/right = 390.0
+margin/bottom = 80.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "E1"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="E1"]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 5, 62 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="E2" type="Button" parent="."]
+
+margin/left = 340.0
+margin/top = 155.0
+margin/right = 390.0
+margin/bottom = 205.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "E2"
+flat = false
+
+[node name="Sprite" type="Sprite" parent="E2"]
+
+visibility/opacity = 0.0
+transform/pos = Vector2( 0, -39 )
+texture = ExtResource( 6 )
+centered = false
+
+[connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
+
+[connection signal="pressed" from="B1" to="." method="_on_B1_pressed"]
+
+[connection signal="pressed" from="B2" to="." method="_on_B2_pressed"]
+
+[connection signal="pressed" from="I1" to="." method="_on_I1_pressed"]
+
+[connection signal="pressed" from="I2" to="." method="_on_I2_pressed"]
+
+[connection signal="pressed" from="E1" to="." method="_on_E1_pressed"]
+
+[connection signal="pressed" from="E2" to="." method="_on_E2_pressed"]
+
+
