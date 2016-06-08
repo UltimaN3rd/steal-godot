@@ -1,6 +1,6 @@
 # Steal Godot
 
-![Title screen](https://raw.github.com/UltimaN3rd/steal-godot/master/promo/titlescreen.png)
+![Title screen](/promo/titlescreen.png)
 
 A simple 2D top-down puzzle game.
 
