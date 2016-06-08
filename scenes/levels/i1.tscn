@@ -38,6 +38,7 @@ __meta__ = { "_editor_collapsed":true }
 
 transform/pos = Vector2( 125, 325 )
 linear_damp = 0.1
+this_level = 2
 
 [node name="Sprite" parent="Stairs"]
 

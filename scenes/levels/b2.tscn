@@ -108,6 +108,7 @@ collision/margin = 0.08
 
 transform/pos = Vector2( 125, 325 )
 linear_damp = 0.1
+this_level = 1
 
 [node name="Sprite" parent="Stairs"]
 

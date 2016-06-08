@@ -71,8 +71,6 @@ linear_damp = 0.1
 
 [node name="Boulders" type="Node" parent="."]
 
-__meta__ = { "_editor_collapsed":true }
-
 [node name="Boulder" parent="Boulders" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 175, 225 )
@@ -92,6 +90,7 @@ collision/margin = 0.08
 
 transform/pos = Vector2( 425, 425 )
 linear_damp = 0.1
+this_level = 0
 
 [node name="Sprite" parent="Stairs"]
 
