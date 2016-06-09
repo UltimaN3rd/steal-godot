@@ -6,6 +6,8 @@ export(int) var this_level = 0
 var save_file = File.new()
 var level_complete = [false, false, false, false, false, false] # B1/2, I1/2, E1/2
 
+onready var the_light = get_node("Light")
+
 func _ready():
 	if(save_file.file_exists("user://save.txt")):
 		save_file.open("user://save.txt", save_file.READ)
@@ -31,4 +33,6 @@ func _on_Stairs_body_enter( body ):
 				save_file.store_string("0")
 		save_file.close()
 		
-		get_tree().change_scene("res://scenes/levelselect.tscn")
+		body.celebrate(self)
+		set_pos(get_pos() + Vector2(0, -50))
+		the_light.set_hidden(false)

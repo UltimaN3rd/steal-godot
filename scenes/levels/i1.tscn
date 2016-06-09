@@ -37,7 +37,6 @@ __meta__ = { "_editor_collapsed":true }
 [node name="Stairs" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 125, 325 )
-linear_damp = 0.1
 this_level = 2
 
 [node name="Sprite" parent="Stairs"]
@@ -47,7 +46,6 @@ texture = ExtResource( 3 )
 [node name="Player" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 125, 125 )
-collision/margin = 0.08
 
 [node name="Camera2D" parent="Player"]
 

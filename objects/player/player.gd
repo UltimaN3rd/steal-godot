@@ -11,10 +11,12 @@ var next_target = Vector2()
 var directions = [false, false, false, false] #Up, Down, Left, Right
 var movement_timer = 0
 var stopped = true
+var can_move = true
 
 onready var target_position = get_pos()
 onready var last_position = get_pos()
 onready var sprite = get_child(0)
+onready var camera = get_node("Camera2D")
 
 func _ready():
 	set_process_input(true)
@@ -24,7 +26,9 @@ func _input(event):
 	if(event.is_action_pressed("room_reset")):
 		get_tree().reload_current_scene()
 	elif(event.is_action_pressed("ui_cancel")):
-		get_tree().change_scene("res://scenes/levelselect.tscn")
+		go_to_level_select()
+	elif(event.is_action_pressed("ui_accept") and not can_move):
+		go_to_level_select()
 	elif(event.is_action_released("ui_up")):
 		directions[0] = false
 		movement_timer = movement_time
@@ -76,7 +80,7 @@ func _fixed_process(delta):
 		move_next_frame -= 1
 		move_to(next_target)
 	
-	if(moved):
+	if(moved and can_move):
 		last_position = get_pos()
 		moved = false
 		var move_test = get_world_2d().get_direct_space_state().intersect_point(target_position)
@@ -139,3 +143,13 @@ func move_to(target):
 func delayed_move_to(target, delay = 1):
 	move_next_frame = delay
 	next_target = target
+
+func celebrate(var trophy):
+	camera.do_zoom = true
+	sprite.hide()
+	get_node("SpriteCelebrate").set_hidden(false)
+	can_move = false
+	get_node("Button").set_hidden(false)
+
+func go_to_level_select():
+	get_tree().change_scene("res://scenes/levelselect.tscn")
