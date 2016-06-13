@@ -29,6 +29,8 @@ func _input(event):
 		go_to_level_select()
 	elif(event.is_action_pressed("ui_accept") and not can_move):
 		go_to_level_select()
+	elif(event.is_action_pressed("toggle_fullscreen")):
+		OS.set_window_fullscreen(not OS.is_window_fullscreen())
 	elif(event.is_action_released("ui_up")):
 		directions[0] = false
 		movement_timer = movement_time

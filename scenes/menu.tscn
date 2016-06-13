@@ -2,7 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()\n\telif(event.is_action_pressed(\"toggle_fullscreen\")):\n\t\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()\n\nfunc _on_ButtonOptions_pressed():\n\tget_tree().change_scene(\"res://scenes/options.tscn\")"
 
 [node name="Root" type="Node"]
 
@@ -10,11 +10,10 @@ script/script = SubResource( 1 )
 
 [node name="ButtonPlay" type="Button" parent="."]
 
-visibility/opacity = 0.6
 margin/left = 115.0
-margin/top = 105.0
+margin/top = 55.0
 margin/right = 365.0
-margin/bottom = 155.0
+margin/bottom = 105.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -24,9 +23,22 @@ text = "Play"
 flat = false
 clip_text = true
 
+[node name="ButtonOptions" type="Button" parent="."]
+
+margin/left = 115.0
+margin/top = 155.0
+margin/right = 365.0
+margin/bottom = 205.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Options"
+flat = false
+
 [node name="ButtonQuit" type="Button" parent="."]
 
-visibility/opacity = 0.6
 margin/left = 115.0
 margin/top = 255.0
 margin/right = 365.0
@@ -41,6 +53,8 @@ flat = false
 clip_text = true
 
 [connection signal="pressed" from="ButtonPlay" to="." method="_on_ButtonPlay_pressed"]
+
+[connection signal="pressed" from="ButtonOptions" to="." method="_on_ButtonOptions_pressed"]
 
 [connection signal="pressed" from="ButtonQuit" to="." method="_on_ButtonQuit_pressed"]
 

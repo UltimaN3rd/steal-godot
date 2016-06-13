@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_ButtonMenu_pressed()\n\telif(event.is_action_pressed(\"toggle_fullscreen\")):\n\t\t_on_ButtonFullscreen_pressed()\n\nfunc _on_ButtonMenu_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_ButtonFullscreen_pressed():\n\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonDeleteSave_pressed():\n\tvar save_directory = Directory.new()\n\tsave_directory.open(\"user://\")\n\tif(save_directory.file_exists(\"save.txt\")):\n\t\tprint(save_directory.remove(\"user://save.txt\"))"
+
+[node name="Node" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="ButtonFullscreen" type="Button" parent="."]
+
+margin/left = 65.0
+margin/top = 55.0
+margin/right = 215.0
+margin/bottom = 105.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Toggle fullscreen"
+flat = false
+
+[node name="ButtonDeleteSave" type="Button" parent="."]
+
+margin/left = 265.0
+margin/top = 55.0
+margin/right = 415.0
+margin/bottom = 105.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Delete save data"
+flat = false
+
+[node name="ButtonMenu" type="Button" parent="."]
+
+margin/left = 165.0
+margin/top = 255.0
+margin/right = 315.0
+margin/bottom = 305.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Back to menu"
+flat = false
+
+[connection signal="pressed" from="ButtonFullscreen" to="." method="_on_ButtonFullscreen_pressed"]
+
+[connection signal="pressed" from="ButtonDeleteSave" to="." method="_on_ButtonDeleteSave_pressed"]
+
+[connection signal="pressed" from="ButtonMenu" to="." method="_on_ButtonMenu_pressed"]
+
+
