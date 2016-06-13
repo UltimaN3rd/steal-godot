@@ -14,7 +14,7 @@ script/script = SubResource( 1 )
 
 stream/stream = ExtResource( 1 )
 stream/play = false
-stream/loop = true
+stream/loop = false
 stream/volume_db = 0.0
 stream/autoplay = true
 stream/paused = false
