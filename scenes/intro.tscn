@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=1]
 
-[ext_resource path="res://cinematics/voiceacting/Intro.ogg" type="AudioStream" id=1]
+[ext_resource path="res://cinematics/voiceacting/intro.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cinematics/baaadground.png" type="Texture" id=2]
 [ext_resource path="res://cinematics/indiehappy.png" type="Texture" id=3]
 [ext_resource path="res://cinematics/indiesad.png" type="Texture" id=4]
