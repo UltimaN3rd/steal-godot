@@ -2,7 +2,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_ButtonMenu_pressed()\n\telif(event.is_action_pressed(\"toggle_fullscreen\")):\n\t\t_on_ButtonFullscreen_pressed()\n\nfunc _on_ButtonMenu_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_ButtonFullscreen_pressed():\n\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonDeleteSave_pressed():\n\tvar save_directory = Directory.new()\n\tsave_directory.open(\"user://\")\n\tif(save_directory.file_exists(\"save.txt\")):\n\t\tprint(save_directory.remove(\"user://save.txt\"))"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_ButtonMenu_pressed()\n\nfunc _on_ButtonMenu_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_ButtonFullscreen_pressed():\n\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonDeleteSave_pressed():\n\tvar save_directory = Directory.new()\n\tsave_directory.open(\"user://\")\n\tif(save_directory.file_exists(\"save.txt\")):\n\t\tprint(save_directory.remove(\"user://save.txt\"))"
 
 [node name="Node" type="Node"]
 

@@ -4,7 +4,7 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()\n\telif(event.is_action_pressed(\"toggle_fullscreen\")):\n\t\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()\n\nfunc _on_ButtonOptions_pressed():\n\tget_tree().change_scene(\"res://scenes/options.tscn\")"
+script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\tget_tree().quit()\n\nfunc _on_ButtonPlay_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_ButtonQuit_pressed():\n\tget_tree().quit()\n\nfunc _on_ButtonOptions_pressed():\n\tget_tree().change_scene(\"res://scenes/options.tscn\")"
 
 [node name="Root" type="Node"]
 
