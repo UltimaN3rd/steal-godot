@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://music/menu.ogg" type="AudioStream" id=1]
+[ext_resource path="res://fonts/8-bit_wonder/8-bit_wonder.fnt" type="Font" id=2]
 
 [sub_resource type="GDScript" id=1]
 
@@ -23,14 +24,15 @@ stream/buffering_ms = 500
 
 [node name="ButtonPlay" type="Button" parent="."]
 
-margin/left = 115.0
-margin/top = 55.0
-margin/right = 365.0
-margin/bottom = 105.0
+margin/left = 230.0
+margin/top = 110.0
+margin/right = 730.0
+margin/bottom = 210.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
 toggle_mode = false
 text = "Play"
 flat = false
@@ -38,28 +40,30 @@ clip_text = true
 
 [node name="ButtonOptions" type="Button" parent="."]
 
-margin/left = 115.0
-margin/top = 155.0
-margin/right = 365.0
-margin/bottom = 205.0
+margin/left = 230.0
+margin/top = 310.0
+margin/right = 730.0
+margin/bottom = 410.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
 toggle_mode = false
 text = "Options"
 flat = false
 
 [node name="ButtonQuit" type="Button" parent="."]
 
-margin/left = 115.0
-margin/top = 255.0
-margin/right = 365.0
-margin/bottom = 305.0
+margin/left = 230.0
+margin/top = 510.0
+margin/right = 730.0
+margin/bottom = 610.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
 toggle_mode = false
 text = "Quit"
 flat = false

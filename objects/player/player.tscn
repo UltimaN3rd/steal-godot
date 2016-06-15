@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://objects/player/player.gd" type="Script" id=1]
 [ext_resource path="res://objects/player/player.png" type="Texture" id=2]
 [ext_resource path="res://objects/player/sprite.gd" type="Script" id=3]
 [ext_resource path="res://objects/player/player-arms-up.png" type="Texture" id=4]
+[ext_resource path="res://fonts/8-bit_wonder/8-bit_wonder_small.fnt" type="Font" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -12,7 +13,7 @@ extents = Vector2( 30, 30 )
 
 [sub_resource type="GDScript" id=2]
 
-script/source = "\nextends Camera2D\n\nconst zoom_weight = 10\n\nvar do_zoom = false\nvar current_zoom = Vector2(1, 1)\nvar target_zoom = Vector2(0.5, 0.5)\n\nfunc _fixed_process(delta):\n\tif(do_zoom):\n\t\tself.set_follow_smoothing(15)\n\t\tvar lerped_zoom = lerp(current_zoom.x, target_zoom.x, zoom_weight * delta)\n\t\tset_zoom(Vector2(lerped_zoom, lerped_zoom))\n\t\tcurrent_zoom = get_zoom()\n\t\t\n\t\tif(abs(current_zoom.x - target_zoom.x) < 0.01):\n\t\t\tset_zoom(target_zoom)\n\t\t\tdo_zoom = false"
+script/source = "\nextends Camera2D\n\nconst zoom_weight = 10\n\nonready var current_zoom = get_zoom()\n\nvar do_zoom = false\nvar target_zoom = Vector2(0.25, 0.25)\n\nfunc _fixed_process(delta):\n\tif(do_zoom):\n\t\tself.set_follow_smoothing(15)\n\t\tvar lerped_zoom = lerp(current_zoom.x, target_zoom.x, zoom_weight * delta)\n\t\tset_zoom(Vector2(lerped_zoom, lerped_zoom))\n\t\tcurrent_zoom = get_zoom()\n\t\t\n\t\tif(abs(current_zoom.x - target_zoom.x) < 0.01):\n\t\t\tset_zoom(target_zoom)\n\t\t\tdo_zoom = false"
 
 [node name="Player" type="KinematicBody2D"]
 
@@ -55,7 +56,7 @@ transform/scale = Vector2( 1.28, 1.28 )
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 1, 1 )
+zoom = Vector2( 0.5, 0.5 )
 limit/left = 0
 limit/top = 0
 limit/right = 0
@@ -73,16 +74,17 @@ script/script = SubResource( 2 )
 [node name="Button" type="Button" parent="."]
 
 visibility/visible = false
-margin/left = -96.0
-margin/top = 58.0
-margin/right = 96.0
-margin/bottom = 83.0
+margin/left = -129.0
+margin/top = 45.0
+margin/right = 129.0
+margin/bottom = 68.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
-text = "Press escape or click here!"
+text = "Press esc or click here!"
 flat = false
 
 [connection signal="pressed" from="Button" to="." method="go_to_level_select"]

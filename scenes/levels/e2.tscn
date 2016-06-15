@@ -158,8 +158,7 @@ collision/margin = 0.08
 
 [node name="Camera2D" parent="Player"]
 
-zoom = Vector2( 3.056, 3.056 )
-limit/left = -183
+zoom = Vector2( 1, 1 )
 limit/right = 1100
 limit/bottom = 1100
 
