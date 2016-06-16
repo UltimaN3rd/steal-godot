@@ -34,5 +34,5 @@ func _on_Stairs_body_enter( body ):
 		save_file.close()
 		
 		body.celebrate(self)
-		set_pos(get_pos() + Vector2(0, -50))
+		set_pos(get_pos() + Vector2(0, -60))
 		the_light.set_hidden(false)

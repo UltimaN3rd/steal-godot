@@ -4,14 +4,15 @@
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_ButtonMenu_pressed()\n\nfunc _on_ButtonMenu_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_ButtonFullscreen_pressed():\n\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonDeleteSave_pressed():\n\tvar save_directory = Directory.new()\n\tsave_directory.open(\"user://\")\n\tif(save_directory.file_exists(\"save.txt\")):\n\t\tprint(save_directory.remove(\"user://save.txt\"))"
+script/source = "\nextends Node2D\n\nvar selected = 0\n\nonready var selection_nodes = [get_node(\"ButtonFullscreen\"), get_node(\"ButtonDeleteSave\"), get_node(\"ButtonMenu\")]\n\nfunc _ready():\n\tset_process_input(true)\n\tset_process(true)\n\nfunc _process(delta):\n\tupdate()\n\nfunc _draw():\n\tdraw_circle(selection_nodes[selected].get_pos() + selection_nodes[selected].get_item_rect().size / 2, 100, Color(1, 1, 0.5, 0.1))\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_ButtonMenu_pressed()\n\telif(event.is_action_pressed(\"ui_accept\")):\n\t\tif(selected == 0):\n\t\t\t_on_ButtonFullscreen_pressed()\n\t\telif(selected == 1):\n\t\t\t_on_ButtonDeleteSave_pressed()\n\t\telif(selected == 2):\n\t\t\t_on_ButtonMenu_pressed()\n\telif(event.is_action_pressed(\"ui_down\")):\n\t\tselected += 1\n\t\tif(selected > 2):\n\t\t\tselected = 0\n\telif(event.is_action_pressed(\"ui_up\")):\n\t\tselected -= 1\n\t\tif(selected < 0):\n\t\t\tselected = 2\n\nfunc _on_ButtonMenu_pressed():\n\tget_tree().change_scene(\"res://scenes/menu.tscn\")\n\nfunc _on_ButtonFullscreen_pressed():\n\tOS.set_window_fullscreen(not OS.is_window_fullscreen())\n\nfunc _on_ButtonDeleteSave_pressed():\n\tvar save_directory = Directory.new()\n\tsave_directory.open(\"user://\")\n\tif(save_directory.file_exists(\"save.txt\")):\n\t\tsave_directory.remove(\"user://save.txt\")"
 
-[node name="Node" type="Node"]
+[node name="Node" type="Node2D"]
 
 script/script = SubResource( 1 )
 
 [node name="ButtonFullscreen" type="Button" parent="."]
 
+visibility/behind_parent = true
 margin/left = 230.0
 margin/top = 110.0
 margin/right = 730.0
@@ -27,6 +28,7 @@ flat = false
 
 [node name="ButtonDeleteSave" type="Button" parent="."]
 
+visibility/behind_parent = true
 margin/left = 230.0
 margin/top = 310.0
 margin/right = 730.0
@@ -42,6 +44,7 @@ flat = false
 
 [node name="ButtonMenu" type="Button" parent="."]
 
+visibility/behind_parent = true
 margin/left = 230.0
 margin/top = 510.0
 margin/right = 730.0
