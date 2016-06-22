@@ -2,8 +2,9 @@
 
 [ext_resource path="res://tiles/tiles.res" type="TileSet" id=1]
 [ext_resource path="res://objects/stairs/stairs.tscn" type="PackedScene" id=2]
-[ext_resource path="res://sprites/levelscomplete/godotbl.png" type="Texture" id=3]
+[ext_resource path="res://sprites/godotbl.png" type="Texture" id=3]
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=4]
+
 
 [node name="Root" type="Node"]
 

@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://fonts/8-bit_wonder/8-bit_wonder.fnt" type="Font" id=1]
+[ext_resource path="res://fonts/8-bit_wonder.fnt" type="Font" id=1]
+
 
 [sub_resource type="GDScript" id=1]
 

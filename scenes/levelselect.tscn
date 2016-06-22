@@ -1,12 +1,19 @@
 [gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://fonts/8-bit_wonder/8-bit_wonder.fnt" type="Font" id=1]
-[ext_resource path="res://sprites/levelscomplete/godottl.png" type="Texture" id=2]
-[ext_resource path="res://sprites/levelscomplete/godottr.png" type="Texture" id=3]
-[ext_resource path="res://sprites/levelscomplete/godotbl.png" type="Texture" id=4]
-[ext_resource path="res://sprites/levelscomplete/godotbr.png" type="Texture" id=5]
-[ext_resource path="res://sprites/levelscomplete/bonust.png" type="Texture" id=6]
-[ext_resource path="res://sprites/levelscomplete/bonusb.png" type="Texture" id=7]
+[ext_resource path="res://fonts/8-bit_wonder.fnt" type="Font" id=1]
+[ext_resource path="res://sprites/godottl.png" type="Texture" id=2]
+[ext_resource path="res://sprites/godottr.png" type="Texture" id=3]
+[ext_resource path="res://sprites/godotbl.png" type="Texture" id=4]
+[ext_resource path="res://sprites/godotbr.png" type="Texture" id=5]
+[ext_resource path="res://sprites/bonust.png" type="Texture" id=6]
+[ext_resource path="res://sprites/bonusb.png" type="Texture" id=7]
+
+
+
+
+
+
+
 
 [sub_resource type="GDScript" id=1]
 

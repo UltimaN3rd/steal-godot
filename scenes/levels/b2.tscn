@@ -5,8 +5,9 @@
 [ext_resource path="res://objects/switch/switch.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/boulder/boulder.tscn" type="PackedScene" id=4]
 [ext_resource path="res://objects/stairs/stairs.tscn" type="PackedScene" id=5]
-[ext_resource path="res://sprites/levelscomplete/godottr.png" type="Texture" id=6]
+[ext_resource path="res://sprites/godottr.png" type="Texture" id=6]
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=7]
+
 
 [node name="Root" type="Node"]
 
