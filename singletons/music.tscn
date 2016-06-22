@@ -1,28 +1,28 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://music/1intro.ogg" type="AudioStream" id=1]
-[ext_resource path="res://music/1loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://music/menu.ogg" type="AudioStream" id=1]
+[ext_resource path="res://music/basic-loop.ogg" type="AudioStream" id=2]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nonready var current_scene = get_tree().get_current_scene()\n#onready var intro_stream = get_node(\"Intro\")\nonready var loop_stream = get_node(\"Loop\")\n\n#var done_intro = false\n#var intro_count = 0\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tvar new_scene = get_tree().get_current_scene()\n\t\n\tif(new_scene != current_scene):\n\t\tcurrent_scene = new_scene\n\t\tif(new_scene.get_filename() == \"res://scenes/menu.tscn\" or\n\t\tnew_scene.get_filename() == \"res://scenes/levelselect.tscn\" or\n\t\tnew_scene.get_filename() == \"res://scenes/options.tscn\"):\n\t\t\t#if(intro_stream.is_playing() == false and not done_intro):\n\t\t\t\t#intro_count = 0\n\t\t\t\t#intro_stream.play()\n\t\t\tif(loop_stream.is_playing() == false):\n\t\t\t\tprint(\"Play it!\")\n\t\t\t\tloop_stream.play()\n\t\telse:\n\t\t\t#intro_stream.stop()\n\t\t\t#done_intro = false\n\t\t\t#intro_count = 0\n\t\t\tprint(\"Stop it!\")\n\t\t\tloop_stream.stop()\n\nfunc _on_Intro_finished():\n\tpass\n\t\"\"\"print(\"Finished\?\")\n\tif(intro_count > 0):\n\t\tdone_intro = true\n\t\t#intro_stream.stop()\n\t\tloop_stream.play()\n\tintro_count += 1\"\"\""
+script/source = "\nextends Node\n\nonready var current_scene = get_tree().get_current_scene()\nonready var menu_stream = get_node(\"Menu\")\nonready var level_stream = get_node(\"Levels\")\n\nfunc _ready():\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tvar new_scene = get_tree().get_current_scene()\n\t\n\tif(new_scene != current_scene):\n\t\tcurrent_scene = new_scene\n\t\tif(new_scene.get_filename().get_file() == \"menu.tscn\" or\n\t\tnew_scene.get_filename().get_file() == \"levelselect.tscn\" or\n\t\tnew_scene.get_filename().get_file() == \"options.tscn\"):\n\t\t\tif(menu_stream.is_playing() == false):\n\t\t\t\tmenu_stream.play()\n\t\t\tlevel_stream.stop()\n\t\telif(new_scene.get_filename().get_file().begins_with(\"e\")):\n\t\t\tmenu_stream.stop()\n\t\t\tlevel_stream.stop()\n\t\telse:\n\t\t\tif(level_stream.is_playing() == false):\n\t\t\t\tlevel_stream.play()\n\t\t\tmenu_stream.stop()"
 
 [node name="Root" type="Node"]
 
 script/script = SubResource( 1 )
 
-[node name="Intro" type="StreamPlayer" parent="."]
+[node name="Menu" type="StreamPlayer" parent="."]
 
 stream/stream = ExtResource( 1 )
 stream/play = false
-stream/loop = false
+stream/loop = true
 stream/volume_db = 0.0
 stream/autoplay = false
 stream/paused = false
 stream/loop_restart_time = 0.0
-stream/buffering_ms = 200
+stream/buffering_ms = 500
 
-[node name="Loop" type="StreamPlayer" parent="."]
+[node name="Levels" type="StreamPlayer" parent="."]
 
 stream/stream = ExtResource( 2 )
 stream/play = false
@@ -32,7 +32,5 @@ stream/autoplay = false
 stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
-
-[connection signal="finished" from="Intro" to="." method="_on_Intro_finished"]
 
 
