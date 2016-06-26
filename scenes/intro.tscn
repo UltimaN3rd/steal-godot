@@ -1,19 +1,20 @@
-[gd_scene load_steps=24 format=1]
+[gd_scene load_steps=25 format=1]
 
-[ext_resource path="res://cinematics/voiceacting/intro.ogg" type="AudioStream" id=1]
-[ext_resource path="res://cinematics/baaadground.png" type="Texture" id=2]
-[ext_resource path="res://cinematics/indiehappy.png" type="Texture" id=3]
-[ext_resource path="res://cinematics/indiesad.png" type="Texture" id=4]
-[ext_resource path="res://cinematics/baaadgroup.png" type="Texture" id=5]
-[ext_resource path="res://cinematics/baaadtext.png" type="Texture" id=6]
-[ext_resource path="res://cinematics/dollar.png" type="Texture" id=7]
-[ext_resource path="res://cinematics/engines.png" type="Texture" id=8]
-[ext_resource path="res://cinematics/gamecomplete.png" type="Texture" id=9]
-[ext_resource path="res://cinematics/enginedevelopment.png" type="Texture" id=10]
-[ext_resource path="res://cinematics/stealgodot.png" type="Texture" id=11]
-[ext_resource path="res://cinematics/playerbase.png" type="Texture" id=12]
-[ext_resource path="res://cinematics/playerclothes.png" type="Texture" id=13]
-[ext_resource path="res://cinematics/agameby.png" type="Texture" id=14]
+[ext_resource path="res://cinematics/intro/voice-acting/intro.ogg" type="AudioStream" id=1]
+[ext_resource path="res://cinematics/intro/baaadground.png" type="Texture" id=2]
+[ext_resource path="res://cinematics/intro/indiehappy.png" type="Texture" id=3]
+[ext_resource path="res://cinematics/intro/indiesad.png" type="Texture" id=4]
+[ext_resource path="res://cinematics/intro/baaadgroup.png" type="Texture" id=5]
+[ext_resource path="res://cinematics/intro/baaadtext.png" type="Texture" id=6]
+[ext_resource path="res://cinematics/intro/dollar.png" type="Texture" id=7]
+[ext_resource path="res://cinematics/intro/engines.png" type="Texture" id=8]
+[ext_resource path="res://cinematics/intro/gamecomplete.png" type="Texture" id=9]
+[ext_resource path="res://cinematics/intro/enginedevelopment.png" type="Texture" id=10]
+[ext_resource path="res://cinematics/intro/stealgodot.png" type="Texture" id=11]
+[ext_resource path="res://cinematics/intro/playerbase.png" type="Texture" id=12]
+[ext_resource path="res://cinematics/intro/playerclothes.png" type="Texture" id=13]
+[ext_resource path="res://cinematics/intro/agameby.png" type="Texture" id=14]
+[ext_resource path="res://fonts/8-bit_wonder_small.fnt" type="Font" id=15]
 
 [sub_resource type="GDScript" id=1]
 
@@ -275,16 +276,17 @@ autostart = false
 [node name="Skip" type="Button" parent="."]
 
 visibility/opacity = 0.5
-margin/left = 388.0
-margin/top = 316.0
-margin/right = 455.0
-margin/bottom = 335.0
+margin/left = 410.0
+margin/top = 320.0
+margin/right = 470.0
+margin/bottom = 350.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+custom_fonts/font = ExtResource( 15 )
 toggle_mode = false
-text = "Skip Intro"
+text = "Skip"
 flat = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
