@@ -186,7 +186,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 toggle_mode = false
 icon = ExtResource( 8 )
-flat = true
+flat = false
 
 [connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
 

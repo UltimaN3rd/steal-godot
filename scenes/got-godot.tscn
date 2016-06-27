@@ -1,40 +1,50 @@
-[gd_scene load_steps=10 format=1]
+[gd_scene load_steps=11 format=1]
 
-[ext_resource path="res://cinematics/got-godot/background.png" type="Texture" id=1]
-[ext_resource path="res://cinematics/got-godot/player.png" type="Texture" id=2]
-[ext_resource path="res://cinematics/got-godot/godot.png" type="Texture" id=3]
-[ext_resource path="res://cinematics/got-godot/indie.png" type="Texture" id=4]
-[ext_resource path="res://cinematics/got-godot/beer.png" type="Texture" id=5]
-[ext_resource path="res://cinematics/got-godot/end-text.png" type="Texture" id=6]
-[ext_resource path="res://cinematics/got-godot/hint.png" type="Texture" id=7]
-[ext_resource path="res://fonts/8-bit_wonder_small.fnt" type="Font" id=8]
+[ext_resource path="res://cinematics/got-godot/voice-acting/commentary.ogg" type="AudioStream" id=1]
+[ext_resource path="res://cinematics/got-godot/background.png" type="Texture" id=2]
+[ext_resource path="res://cinematics/got-godot/player.png" type="Texture" id=3]
+[ext_resource path="res://cinematics/got-godot/godot.png" type="Texture" id=4]
+[ext_resource path="res://cinematics/got-godot/indie.png" type="Texture" id=5]
+[ext_resource path="res://cinematics/got-godot/beer.png" type="Texture" id=6]
+[ext_resource path="res://cinematics/got-godot/end-text.png" type="Texture" id=7]
+[ext_resource path="res://cinematics/got-godot/hint.png" type="Texture" id=8]
+[ext_resource path="res://fonts/8-bit_wonder_small.fnt" type="Font" id=9]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nvar indie_offset = 0\nvar jump = false\nvar fade = false\nvar end = false\nvar hint = false\nvar fade_again = false\n\nonready var indies1 = get_node(\"Indies/1\")\nonready var indies2 = get_node(\"Indies/2\")\nonready var beers1 = indies1.get_node(\"Beers\")\nonready var beers2 = indies2.get_node(\"Beers\")\nonready var black = get_node(\"Black\")\nonready var end_text = get_node(\"EndText\")\nonready var hint_text = get_node(\"Hint\")\nonready var black1 = get_node(\"Black1\")\n\nfunc _ready():\n\tset_process_input(true)\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(fade_again):\n\t\tblack1.set_opacity(black1.get_opacity() + delta)\n\t\tif(black1.get_opacity() >= 1):\n\t\t\tfade_again = false\n\t\t\tget_node(\"TimerFinal\").start()\n\t\t\tset_fixed_process(false)\n\telif(hint):\n\t\thint_text.set_opacity(hint_text.get_opacity() + delta)\n\t\tif(hint_text.get_opacity() >= 1):\n\t\t\thint = false\n\t\t\tget_node(\"TimerBlack1\").start()\n\telif(end):\n\t\tend_text.set_opacity(end_text.get_opacity() + delta)\n\t\tif(end_text.get_opacity() >= 1):\n\t\t\tend = false\n\t\t\tget_node(\"TimerHint\").start()\n\telif(fade):\n\t\tblack.set_opacity(black.get_opacity() + delta)\n\t\tif(black.get_opacity() >= 1):\n\t\t\tfade = false\n\t\t\tjump = false\n\tif(jump):\n\t\tindie_offset += delta * 15\n\t\tindies1.set_pos(Vector2(4, sin(indie_offset) * 15))\n\t\tindies2.set_pos(Vector2(60, cos(indie_offset) * 10))\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\") or event.is_action_pressed(\"ui_accept\")):\n\t\t_on_Skip_pressed()\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_TimerIndies_timeout():\n\tget_node(\"Indies\").set_hidden(false)\n\tjump = true\n\nfunc _on_TimerBeers_timeout():\n\tbeers1.set_hidden(false)\n\tbeers2.set_hidden(false)\n\nfunc _on_TimerBlack_timeout():\n\tfade = true\n\tget_node(\"TimerEnd\").start()\n\nfunc _on_TimerEnd_timeout():\n\tend = true\n\nfunc _on_TimerHint_timeout():\n\thint = true\n\nfunc _on_TimerBlack1_timeout():\n\tfade_again = true\n\nfunc _on_TimerFinal_timeout():\n\t_on_Skip_pressed()"
+script/source = "\nextends Node\n\nvar indie_offset = 0\nvar dev_offset_initial = 150\nvar dev_offset_base = [5, 10, 6, 1, 2, 9, 10, 15, 4, 32, 38, 31, 42, 36, 45, 30, 31, 39]\nvar dev_offset = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]\nvar jump = false\nvar fade = false\nvar end = false\nvar hint = false\nvar fade_again = false\n\nonready var indies1 = get_node(\"Indies/1\")\nonready var indies2 = get_node(\"Indies/2\")\nonready var beers1 = indies1.get_node(\"Beers\")\nonready var beers2 = indies2.get_node(\"Beers\")\nonready var black = get_node(\"Black\")\nonready var end_text = get_node(\"EndText\")\nonready var hint_text = get_node(\"Hint\")\nonready var black1 = get_node(\"Black1\")\n\nfunc _ready():\n\tset_process_input(true)\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\tif(fade_again):\n\t\tblack1.set_opacity(black1.get_opacity() + delta)\n\t\tif(black1.get_opacity() >= 1):\n\t\t\tfade_again = false\n\t\t\tget_node(\"TimerFinal\").start()\n\t\t\tset_fixed_process(false)\n\telif(hint):\n\t\thint_text.set_opacity(hint_text.get_opacity() + delta)\n\t\tif(hint_text.get_opacity() >= 1):\n\t\t\thint = false\n\t\t\tget_node(\"TimerBlack1\").start()\n\telif(end):\n\t\tend_text.set_opacity(end_text.get_opacity() + delta)\n\t\tif(end_text.get_opacity() >= 1):\n\t\t\tend = false\n\t\t\tget_node(\"TimerHint\").start()\n\telif(fade):\n\t\tblack.set_opacity(black.get_opacity() + delta)\n\t\tif(black.get_opacity() >= 1):\n\t\t\tfade = false\n\t\t\tjump = false\n\tif(jump):\n\t\t\"\"\"indie_offset += delta * 15\n\t\tindies1.set_pos(Vector2(4, sin(indie_offset) * 15))\n\t\tindies2.set_pos(Vector2(60, cos(indie_offset) * 10))\"\"\"\n\t\tdev_offset_initial -= delta * 400\n\t\tif(dev_offset_initial < 0):\n\t\t\tdev_offset_initial = 0\n\t\tfor i in range(indies1.get_child_count() - 1):\n\t\t\tdev_offset[i] += delta * (10 + rand_range(0, 10))\n\t\t\tindies1.get_child(i).set_pos(Vector2(indies1.get_child(i).get_pos().x, dev_offset_base[i] + sin(dev_offset[i]) * 15 + dev_offset_initial))\n\t\t\tbeers1.get_child(i).set_pos(Vector2(beers1.get_child(i).get_pos().x, dev_offset_base[i] + sin(dev_offset[i]) * 15 + dev_offset_initial))\n\t\tfor i in range(indies2.get_child_count() - 1):\n\t\t\tdev_offset[i + 9] += delta * (10 + rand_range(0, 10))\n\t\t\tindies2.get_child(i).set_pos(Vector2(indies2.get_child(i).get_pos().x, dev_offset_base[i + 9] + cos(dev_offset[i + 9]) * 15 + dev_offset_initial))\n\t\t\tbeers2.get_child(i).set_pos(Vector2(beers2.get_child(i).get_pos().x, dev_offset_base[i + 9] + cos(dev_offset[i + 9]) * 15 + dev_offset_initial))\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_cancel\") or event.is_action_pressed(\"ui_accept\")):\n\t\t_on_Skip_pressed()\n\nfunc _on_Skip_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_TimerIndies_timeout():\n\tget_node(\"Indies\").set_hidden(false)\n\tjump = true\n\nfunc _on_TimerBeers_timeout():\n\tbeers1.set_hidden(false)\n\tbeers2.set_hidden(false)\n\nfunc _on_TimerBlack_timeout():\n\tfade = true\n\tget_node(\"TimerEnd\").start()\n\nfunc _on_TimerEnd_timeout():\n\tend = true\n\nfunc _on_TimerHint_timeout():\n\thint = true\n\nfunc _on_TimerBlack1_timeout():\n\tfade_again = true\n\nfunc _on_TimerFinal_timeout():\n\t_on_Skip_pressed()"
 
 [node name="Root" type="Node"]
 
 script/script = SubResource( 1 )
 
+[node name="StreamPlayer" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 1 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
 [node name="Background" type="Sprite" parent="."]
 
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 centered = false
 
 [node name="Player" type="Sprite" parent="."]
 
 transform/pos = Vector2( 405, 236 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="Godot" type="Sprite" parent="."]
 
 transform/pos = Vector2( 608, 292 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Indies" type="Node2D" parent="."]
-
-visibility/visible = false
 
 [node name="TimerIndies" type="Timer" parent="Indies"]
 
@@ -52,57 +62,56 @@ autostart = true
 
 [node name="1" type="Node2D" parent="Indies"]
 
-transform/pos = Vector2( 4, 0 )
+transform/pos = Vector2( 0, 600 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="Indie" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 76, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie1" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 176, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie2" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 276, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie3" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 376, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie4" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 476, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie5" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 576, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie6" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 676, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie7" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 776, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie8" type="Sprite" parent="Indies/1"]
 
 transform/pos = Vector2( 876, 602 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Beers" type="Node2D" parent="Indies/1"]
 
-visibility/visible = false
 transform/pos = Vector2( -4, 0 )
 __meta__ = { "_editor_collapsed":true }
 
@@ -110,104 +119,103 @@ __meta__ = { "_editor_collapsed":true }
 
 transform/pos = Vector2( 106, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer1" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 206, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer2" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 306, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer3" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 406, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer4" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 506, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer5" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 606, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer6" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 706, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer7" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 806, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer8" type="Sprite" parent="Indies/1/Beers"]
 
 transform/pos = Vector2( 906, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="2" type="Node2D" parent="Indies"]
 
-transform/pos = Vector2( 60, 0 )
+transform/pos = Vector2( 60, 550 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="Indie" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 66, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie1" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 166, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie2" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 766, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie3" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 666, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie4" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 566, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie5" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 466, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie6" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 366, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Indie7" type="Sprite" parent="Indies/2"]
 
 transform/pos = Vector2( 266, 582 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Beers" type="Node2D" parent="Indies/2"]
 
-visibility/visible = false
 transform/pos = Vector2( -14, -20 )
 __meta__ = { "_editor_collapsed":true }
 
@@ -215,49 +223,49 @@ __meta__ = { "_editor_collapsed":true }
 
 transform/pos = Vector2( 106, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer1" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 206, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer2" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 306, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer3" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 406, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer4" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 506, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer5" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 606, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer6" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 706, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Beer7" type="Sprite" parent="Indies/2/Beers"]
 
 transform/pos = Vector2( 806, 613 )
 transform/scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="TimerBlack" type="Timer" parent="."]
 
@@ -291,7 +299,7 @@ autostart = false
 
 visibility/opacity = 0.0
 transform/pos = Vector2( 480, 338 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="TimerHint" type="Timer" parent="."]
 
@@ -304,7 +312,7 @@ autostart = false
 
 visibility/opacity = 0.0
 transform/pos = Vector2( 655, 338 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="TimerBlack1" type="Timer" parent="."]
 
@@ -345,7 +353,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 9 )
 toggle_mode = false
 text = "Skip"
 flat = false
