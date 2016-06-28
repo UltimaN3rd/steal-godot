@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=1]
+[gd_scene load_steps=27 format=1]
 
 [ext_resource path="res://cinematics/intro/voice-acting/intro.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cinematics/intro/baaadground.png" type="Texture" id=2]
@@ -8,13 +8,15 @@
 [ext_resource path="res://cinematics/intro/baaadtext.png" type="Texture" id=6]
 [ext_resource path="res://cinematics/intro/dollar.png" type="Texture" id=7]
 [ext_resource path="res://cinematics/intro/engines.png" type="Texture" id=8]
-[ext_resource path="res://cinematics/intro/gamecomplete.png" type="Texture" id=9]
-[ext_resource path="res://cinematics/intro/enginedevelopment.png" type="Texture" id=10]
-[ext_resource path="res://cinematics/intro/stealgodot.png" type="Texture" id=11]
-[ext_resource path="res://cinematics/intro/playerbase.png" type="Texture" id=12]
-[ext_resource path="res://cinematics/intro/playerclothes.png" type="Texture" id=13]
-[ext_resource path="res://cinematics/intro/agameby.png" type="Texture" id=14]
-[ext_resource path="res://fonts/8-bit_wonder_small.fnt" type="Font" id=15]
+[ext_resource path="res://cinematics/intro/yellow-road.png" type="Texture" id=9]
+[ext_resource path="res://cinematics/intro/game-development.png" type="Texture" id=10]
+[ext_resource path="res://cinematics/intro/enginedevelopment.png" type="Texture" id=11]
+[ext_resource path="res://cinematics/intro/flag.png" type="Texture" id=12]
+[ext_resource path="res://cinematics/intro/stealgodot.png" type="Texture" id=13]
+[ext_resource path="res://cinematics/intro/playerbase.png" type="Texture" id=14]
+[ext_resource path="res://cinematics/intro/playerclothes.png" type="Texture" id=15]
+[ext_resource path="res://cinematics/intro/agameby.png" type="Texture" id=16]
+[ext_resource path="res://fonts/8-bit_wonder_small.fnt" type="Font" id=17]
 
 [sub_resource type="GDScript" id=1]
 
@@ -38,17 +40,17 @@ script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"Engines\").set_hi
 
 [sub_resource type="GDScript" id=6]
 
-script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"IndieHappy\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_fixed_process(true)\n\tget_node(\"GameComplete\").set_hidden(false)\n\tget_node(\"EngineDevelopment/Timer\").start()\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_parent().get_node(\"4\").start()\n\tqueue_free()"
+script/source = "\nextends Node\n\nfunc start():\n\tget_node(\"yellow-road\").set_hidden(false)\n\tget_node(\"flag\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_hidden(false)\n\tget_node(\"IndieHappy\").set_fixed_process(true)\n\tget_node(\"game-development\").set_hidden(false)\n\tget_node(\"EngineDevelopment/Timer\").start()\n\tget_node(\"Timer\").start()\n\nfunc _on_Timer_timeout():\n\tget_parent().get_node(\"4\").start()\n\tqueue_free()"
 
 [sub_resource type="GDScript" id=7]
 
-script/source = "\nextends Sprite\n\nconst x_max = 125\nconst speed = 75\n\nonready var x = get_pos().x\nonready var y = get_pos().y\n\nfunc _fixed_process(delta):\n\tx += speed * delta\n\tif(x > x_max):\n\t\tget_parent().get_node(\"IndieSad\").set_hidden(false)\n\t\tqueue_free()\n\tset_pos(Vector2(x, y))"
+script/source = "\nextends Sprite\n\nconst x_max = 175\nconst speed = 100\n\nonready var x = get_pos().x\nonready var y = get_pos().y\n\nfunc _fixed_process(delta):\n\tx += speed * delta\n\tif(x > x_max):\n\t\tget_parent().get_node(\"IndieSad\").set_hidden(false)\n\t\tqueue_free()\n\tset_pos(Vector2(x, y))"
 
 [sub_resource type="GDScript" id=8]
 
-script/source = "\nextends Sprite\n\nfunc _on_Timer_timeout():\n\tset_hidden(false)"
+script/source = "\nextends Sprite\n\nvar fall_speed = 500\nvar max_y = 180\n\nonready var x = get_pos().x\n\nfunc _fixed_process(delta):\n\tset_pos(get_pos() + Vector2(0, fall_speed * delta))\n\tif(get_pos().y > max_y):\n\t\tset_pos(Vector2(get_pos().x, max_y))\n\t\tset_fixed_process(false)\n\nfunc _on_Timer_timeout():\n\tset_fixed_process(true)"
 
-[sub_resource type="GDScript" id=9]
+[sub_resource type="GDScript" id=10]
 
 script/source = "\nextends Node\n\nvar do_steal_godot = false\nvar do_clothes = false\nvar do_agameby = false\n\nonready var node_steal_godot = get_node(\"StealGodot\")\nonready var node_clothes = get_node(\"Player/Clothes\")\nonready var node_agameby = get_node(\"AGameBy\")\n\nfunc start():\n\tset_fixed_process(true)\n\tget_node(\"AGameBy/TimerAGameBy\").start()\n\tget_node(\"Player/Clothes/TimerClothes\").start()\n\tget_node(\"StealGodot/TimerStealGodot\").start()\n\tget_node(\"Player\").set_hidden(false)\n\nfunc _fixed_process(delta):\n\tif(do_steal_godot):\n\t\tnode_steal_godot.set_opacity(node_steal_godot.get_opacity() + delta)\n\tif(do_clothes):\n\t\tnode_clothes.set_opacity(node_clothes.get_opacity() + delta)\n\tif(do_agameby):\n\t\tnode_agameby.set_opacity(node_agameby.get_opacity() + delta)\n\nfunc _on_TimerStealGodot_timeout():\n\tdo_steal_godot = true\n\nfunc _on_TimerClothes_timeout():\n\tdo_clothes = true\n\nfunc _on_TimerAGameBy_timeout():\n\tdo_agameby = true"
 
@@ -176,12 +178,18 @@ autostart = false
 [node name="3" type="Node" parent="."]
 
 script/script = SubResource( 6 )
-__meta__ = { "_editor_collapsed":true }
+
+[node name="yellow-road" type="Sprite" parent="3"]
+
+visibility/visible = false
+transform/pos = Vector2( 0, 177 )
+texture = ExtResource( 9 )
+centered = false
 
 [node name="IndieHappy" type="Sprite" parent="3"]
 
 visibility/visible = false
-transform/pos = Vector2( 50, 150 )
+transform/pos = Vector2( 20, 150 )
 texture = ExtResource( 3 )
 centered = false
 script/script = SubResource( 7 )
@@ -189,23 +197,20 @@ script/script = SubResource( 7 )
 [node name="IndieSad" type="Sprite" parent="3"]
 
 visibility/visible = false
-transform/pos = Vector2( 125, 150 )
+transform/pos = Vector2( 175, 150 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="GameComplete" type="Sprite" parent="3"]
+[node name="game-development" type="Sprite" parent="3"]
 
 visibility/visible = false
-transform/pos = Vector2( 333, 158 )
-texture = ExtResource( 9 )
-centered = false
+transform/pos = Vector2( 240, 220 )
+texture = ExtResource( 10 )
 
 [node name="EngineDevelopment" type="Sprite" parent="3"]
 
-visibility/visible = false
-transform/pos = Vector2( 148, 158 )
-texture = ExtResource( 10 )
-centered = false
+transform/pos = Vector2( 240, -13 )
+texture = ExtResource( 11 )
 script/script = SubResource( 8 )
 
 [node name="Timer" type="Timer" parent="3/EngineDevelopment"]
@@ -222,16 +227,22 @@ wait_time = 3.0
 one_shot = true
 autostart = false
 
+[node name="flag" type="Sprite" parent="3"]
+
+visibility/visible = false
+transform/pos = Vector2( 449, 172 )
+texture = ExtResource( 12 )
+
 [node name="4" type="Node" parent="."]
 
-script/script = SubResource( 9 )
+script/script = SubResource( 10 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="StealGodot" type="Sprite" parent="4"]
 
 visibility/opacity = 0.0
 transform/pos = Vector2( 240, 40 )
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
 
 [node name="TimerStealGodot" type="Timer" parent="4/StealGodot"]
 
@@ -245,13 +256,13 @@ autostart = false
 visibility/visible = false
 transform/pos = Vector2( 240, 190 )
 transform/scale = Vector2( 5, 5 )
-texture = ExtResource( 12 )
+texture = ExtResource( 14 )
 
 [node name="Clothes" type="Sprite" parent="4/Player"]
 
 visibility/opacity = 0.0
 transform/pos = Vector2( 0, -5 )
-texture = ExtResource( 13 )
+texture = ExtResource( 15 )
 
 [node name="TimerClothes" type="Timer" parent="4/Player/Clothes"]
 
@@ -264,7 +275,7 @@ autostart = false
 
 visibility/opacity = 0.0
 transform/pos = Vector2( 240, 321 )
-texture = ExtResource( 14 )
+texture = ExtResource( 16 )
 
 [node name="TimerAGameBy" type="Timer" parent="4/AGameBy"]
 
@@ -284,7 +295,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 17 )
 toggle_mode = false
 text = "Skip"
 flat = false
