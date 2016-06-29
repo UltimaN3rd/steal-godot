@@ -12,6 +12,14 @@ A simple 2D top-down puzzle game.
 - Slippery ice
 - A main menu <sup>Wow</sup>
 
+### Binaries
+
+Builds of the game are available for Linux, Windows and Mac at http://stealgodot.ultiman3rd.com/
+
+### Credit
+
+All design, code, art, music, commentary (everything) made by Nicholas Walton. My wife Froggie717 is editor-in-chief and provided feedback and ideas throughout development. Thanks to the people developing and contributing to the Godot engine for their great work!
+
 ### To build:
 
 - Run the latest* Godot engine available here: http://godotengine.org/download
