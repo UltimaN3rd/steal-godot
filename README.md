@@ -16,6 +16,14 @@ A simple 2D top-down puzzle game.
 
 Builds of the game are available for Linux, Windows and Mac at http://stealgodot.ultiman3rd.com/
 
+### Controls
+
+- Arrows to move the character/navigate menu
+- Space/Enter to confirm menu choices
+- Mouse can be used to navigate menus
+- R to restart a room
+- Escape to go back a menu/exit a level
+
 ### Credit
 
 All design, code, art, music, commentary (everything) made by Nicholas Walton. My wife Froggie717 is editor-in-chief and provided feedback and ideas throughout development. Thanks to the people developing and contributing to the Godot engine for their great work!
