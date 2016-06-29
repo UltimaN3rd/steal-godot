@@ -1,13 +1,14 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://cinematics/bonus/commentary.ogg" type="AudioStream" id=1]
 [ext_resource path="res://cinematics/bonus/background.png" type="Texture" id=2]
-[ext_resource path="res://cinematics/bonus/parchment.png" type="Texture" id=3]
-[ext_resource path="res://fonts/8-bit_wonder.fnt" type="Font" id=4]
+[ext_resource path="res://cinematics/bonus/parchment-top.png" type="Texture" id=3]
+[ext_resource path="res://cinematics/bonus/parchment-bottom.png" type="Texture" id=4]
+[ext_resource path="res://fonts/8-bit_wonder.fnt" type="Font" id=5]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "\nextends Node\n\nonready var black = get_node(\"Black\")\n\nfunc _ready():\n\tset_process_input(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_accept\") or event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_Button_pressed()\n\nfunc _fixed_process(delta):\n\tblack.set_opacity(black.get_opacity() + delta)\n\tif(black.get_opacity() >= 1):\n\t\t_on_Button_pressed()\n\nfunc _on_Commentary_finished():\n\tif(get_node(\"Commentary\").get_loop_count() == 1):\n\t\tset_fixed_process(true)\n\nfunc _on_Button_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")"
+script/source = "\nextends Node\n\nvar parchment_top_y = 230\nvar parchment_bottom_y = 487\nvar move_parchment = true\nvar fade_to_black = false\n\nonready var parchment_top = get_node(\"parchment-top\")\nonready var parchment_bottom = get_node(\"parchment-bottom\")\nonready var black = get_node(\"Black\")\n\nfunc _ready():\n\tset_process_input(true)\n\tset_fixed_process(true)\n\nfunc _input(event):\n\tif(event.is_action_pressed(\"ui_accept\") or event.is_action_pressed(\"ui_cancel\")):\n\t\t_on_Button_pressed()\n\nfunc _fixed_process(delta):\n\tif(move_parchment):\n\t\tparchment_top.set_pos(parchment_top.get_pos() + Vector2(0, 1))\n\t\tparchment_bottom.set_pos(parchment_bottom.get_pos() + Vector2(0, -1))\n\t\tif(parchment_top.get_pos().y > parchment_top_y):\n\t\t\tparchment_top.set_pos(Vector2(parchment_top.get_pos().x, parchment_top_y))\n\t\t\tparchment_bottom.set_pos(Vector2(parchment_bottom.get_pos().x, parchment_bottom_y))\n\t\t\tmove_parchment = false\n\t\n\tif(fade_to_black):\n\t\tblack.set_opacity(black.get_opacity() + delta)\n\t\tif(black.get_opacity() >= 1):\n\t\t\tfade_to_black = false\n\t\t\tget_node(\"Timer\").start()\n\nfunc _on_Commentary_finished():\n\tif(get_node(\"Commentary\").get_loop_count() == 1):\n\t\tfade_to_black = true\n\nfunc _on_Button_pressed():\n\tget_tree().change_scene(\"res://scenes/levelselect.tscn\")\n\nfunc _on_Timer_timeout():\n\t_on_Button_pressed()"
 
 [node name="Root" type="Node"]
 
@@ -29,11 +30,15 @@ stream/buffering_ms = 500
 texture = ExtResource( 2 )
 centered = false
 
-[node name="Parchment" type="Sprite" parent="."]
+[node name="parchment-top" type="Sprite" parent="."]
 
-transform/pos = Vector2( 156, 90 )
+transform/pos = Vector2( 534, 98 )
 texture = ExtResource( 3 )
-centered = false
+
+[node name="parchment-bottom" type="Sprite" parent="."]
+
+transform/pos = Vector2( 426, 619 )
+texture = ExtResource( 4 )
 
 [node name="Black" type="Polygon2D" parent="."]
 
@@ -51,6 +56,7 @@ invert/border = 100.0
 
 [node name="Button" type="Button" parent="."]
 
+visibility/opacity = 0.5
 margin/left = 800.0
 margin/top = 620.0
 margin/right = 920.0
@@ -59,13 +65,22 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-custom_fonts/font = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
 toggle_mode = false
 text = "Skip"
 flat = false
 
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
 [connection signal="finished" from="Commentary" to="." method="_on_Commentary_finished"]
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 

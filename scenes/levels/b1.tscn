@@ -8,7 +8,6 @@
 [ext_resource path="res://sprites/godottl.png" type="Texture" id=6]
 [ext_resource path="res://objects/player/player.tscn" type="PackedScene" id=7]
 
-
 [node name="Root" type="Node"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -27,7 +26,7 @@ collision/bounce = 0.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
-tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 65536, 0, 65540, 0, 65541, 0, 65542, 0, 65543, 0, 65544, 0, 65545, 0, 131072, 0, 131079, 0, 131080, 0, 131081, 0, 196608, 0, 196610, 0, 196612, 0, 196613, 0, 196615, 0, 196616, 0, 196617, 0, 262144, 0, 262153, 0, 327680, 0, 327681, 0, 327682, 0, 327684, 0, 327685, 0, 327686, 0, 327687, 0, 327688, 0, 327689, 0, 393216, 0, 393217, 0, 393225, 0, 458752, 0, 458753, 0, 458757, 0, 458758, 0, 458759, 0, 458760, 0, 458761, 0, 524288, 0, 524289, 0, 524290, 0, 524297, 0, 589824, 0, 589825, 0, 589826, 0, 589827, 0, 589828, 0, 589829, 0, 589830, 0, 589831, 0, 589832, 0, 589833, 0 )
+tile_data = IntArray( 0, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 65536, 0, 65540, 0, 65541, 0, 65542, 0, 65543, 0, 65544, 0, 65545, 0, 131072, 0, 131079, 0, 131080, 0, 131081, 0, 196608, 0, 196610, 0, 196612, 0, 196613, 0, 196615, 0, 196616, 0, 196617, 0, 262144, 0, 262153, 0, 327680, 0, 327681, 0, 327682, 0, 327684, 0, 327685, 0, 327686, 0, 327687, 0, 327688, 0, 327689, 0, 393216, 0, 393217, 0, 393224, 0, 393225, 0, 458752, 0, 458753, 0, 458757, 0, 458758, 0, 458759, 0, 458760, 0, 458761, 0, 524288, 0, 524289, 0, 524290, 0, 524294, 0, 524295, 0, 524296, 0, 524297, 0, 589824, 0, 589825, 0, 589826, 0, 589827, 0, 589828, 0, 589829, 0, 589830, 0, 589831, 0, 589832, 0, 589833, 0 )
 __meta__ = { "_edit_lock_":true }
 
 [node name="Doors" type="Node" parent="."]
@@ -36,37 +35,37 @@ __meta__ = { "_editor_collapsed":true }
 
 [node name="Door" parent="Doors" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 275, 425 )
+transform/pos = Vector2( 225, 325 )
 collision/margin = 0.08
 color = Color( 0.784314, 0, 0, 1 )
 
 [node name="Switch" parent="Doors/Door" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 192, -256 )
+transform/pos = Vector2( 256, -128 )
 transform/scale = Vector2( 1, 1 )
 linear_damp = 0.1
 
 [node name="Door1" parent="Doors" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 325, 425 )
+transform/pos = Vector2( 275, 325 )
 collision/margin = 0.08
 color = Color( 0, 0.784314, 0, 1 )
 
 [node name="Switch" parent="Doors/Door1" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 64, -256 )
+transform/pos = Vector2( 128, -128 )
 transform/scale = Vector2( 1, 1 )
 linear_damp = 0.1
 
 [node name="Door2" parent="Doors" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 375, 425 )
+transform/pos = Vector2( 325, 325 )
 collision/margin = 0.08
 color = Color( 0, 0, 0.784314, 1 )
 
 [node name="Switch" parent="Doors/Door2" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 64, -128 )
+transform/pos = Vector2( -64, 128 )
 transform/scale = Vector2( 1, 1 )
 linear_damp = 0.1
 
@@ -89,7 +88,7 @@ collision/margin = 0.08
 
 [node name="Stairs" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 425, 425 )
+transform/pos = Vector2( 375, 325 )
 linear_damp = 0.1
 
 [node name="Sprite" parent="Stairs"]

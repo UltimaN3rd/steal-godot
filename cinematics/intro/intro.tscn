@@ -50,7 +50,7 @@ script/source = "\nextends Sprite\n\nconst x_max = 175\nconst speed = 100\n\nonr
 
 script/source = "\nextends Sprite\n\nvar fall_speed = 500\nvar max_y = 180\n\nonready var x = get_pos().x\n\nfunc _fixed_process(delta):\n\tset_pos(get_pos() + Vector2(0, fall_speed * delta))\n\tif(get_pos().y > max_y):\n\t\tset_pos(Vector2(get_pos().x, max_y))\n\t\tset_fixed_process(false)\n\nfunc _on_Timer_timeout():\n\tset_fixed_process(true)"
 
-[sub_resource type="GDScript" id=10]
+[sub_resource type="GDScript" id=9]
 
 script/source = "\nextends Node\n\nvar do_steal_godot = false\nvar do_clothes = false\nvar do_agameby = false\n\nonready var node_steal_godot = get_node(\"StealGodot\")\nonready var node_clothes = get_node(\"Player/Clothes\")\nonready var node_agameby = get_node(\"AGameBy\")\n\nfunc start():\n\tset_fixed_process(true)\n\tget_node(\"AGameBy/TimerAGameBy\").start()\n\tget_node(\"Player/Clothes/TimerClothes\").start()\n\tget_node(\"StealGodot/TimerStealGodot\").start()\n\tget_node(\"Player\").set_hidden(false)\n\nfunc _fixed_process(delta):\n\tif(do_steal_godot):\n\t\tnode_steal_godot.set_opacity(node_steal_godot.get_opacity() + delta)\n\tif(do_clothes):\n\t\tnode_clothes.set_opacity(node_clothes.get_opacity() + delta)\n\tif(do_agameby):\n\t\tnode_agameby.set_opacity(node_agameby.get_opacity() + delta)\n\nfunc _on_TimerStealGodot_timeout():\n\tdo_steal_godot = true\n\nfunc _on_TimerClothes_timeout():\n\tdo_clothes = true\n\nfunc _on_TimerAGameBy_timeout():\n\tdo_agameby = true"
 
@@ -136,7 +136,6 @@ autostart = true
 [node name="2" type="Node" parent="."]
 
 script/script = SubResource( 5 )
-__meta__ = { "_editor_collapsed":true }
 
 [node name="Dollars" type="Particles2D" parent="2"]
 
@@ -171,13 +170,14 @@ centered = false
 [node name="Timer" type="Timer" parent="2"]
 
 process_mode = 1
-wait_time = 5.0
+wait_time = 4.0
 one_shot = true
 autostart = false
 
 [node name="3" type="Node" parent="."]
 
 script/script = SubResource( 6 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="yellow-road" type="Sprite" parent="3"]
 
@@ -235,7 +235,7 @@ texture = ExtResource( 12 )
 
 [node name="4" type="Node" parent="."]
 
-script/script = SubResource( 10 )
+script/script = SubResource( 9 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="StealGodot" type="Sprite" parent="4"]
